@@ -7,14 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		30020BD51FECF7EA00565A68 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 30020BD41FECF7EA00565A68 /* AppDelegate.m */; };
-		30020BD81FECF7EA00565A68 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30020BD71FECF7EA00565A68 /* ViewController.m */; };
-		30020BDB1FECF7EA00565A68 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30020BD91FECF7EA00565A68 /* Main.storyboard */; };
-		30020BDD1FECF7EA00565A68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30020BDC1FECF7EA00565A68 /* Assets.xcassets */; };
-		30020BE01FECF7EA00565A68 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30020BDE1FECF7EA00565A68 /* LaunchScreen.storyboard */; };
-		30020BE31FECF7EA00565A68 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 30020BE21FECF7EA00565A68 /* main.m */; };
 		30020BED1FECF7EA00565A68 /* JFTKeyboardManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 30020BEC1FECF7EA00565A68 /* JFTKeyboardManagerTests.m */; };
 		30020BF81FECF7EA00565A68 /* JFTKeyboardManagerUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 30020BF71FECF7EA00565A68 /* JFTKeyboardManagerUITests.m */; };
+		30020C1C1FECF80B00565A68 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 30020C051FECF80700565A68 /* AppDelegate.m */; };
+		30020C1D1FECF80B00565A68 /* UIScrollView+JFTKeyboardAvoid.m in Sources */ = {isa = PBXBuildFile; fileRef = 30020C071FECF80700565A68 /* UIScrollView+JFTKeyboardAvoid.m */; };
+		30020C1E1FECF80B00565A68 /* UIView+JFTKeyboardHierarchy.m in Sources */ = {isa = PBXBuildFile; fileRef = 30020C091FECF80700565A68 /* UIView+JFTKeyboardHierarchy.m */; };
+		30020C1F1FECF80B00565A68 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 30020C0B1FECF80700565A68 /* Info.plist */; };
+		30020C201FECF80B00565A68 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30020C0D1FECF80700565A68 /* LaunchScreen.storyboard */; };
+		30020C211FECF80B00565A68 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30020C0F1FECF80700565A68 /* Main.storyboard */; };
+		30020C221FECF80B00565A68 /* TestContentTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30020C111FECF80700565A68 /* TestContentTextView.m */; };
+		30020C231FECF80B00565A68 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 30020C141FECF80800565A68 /* main.m */; };
+		30020C241FECF80B00565A68 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30020C171FECF80A00565A68 /* ViewController.m */; };
+		30020C251FECF80B00565A68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30020C181FECF80A00565A68 /* Assets.xcassets */; };
+		30020C261FECF80B00565A68 /* JFTKeyboardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 30020C191FECF80A00565A68 /* JFTKeyboardModel.m */; };
+		30020C271FECF80B00565A68 /* JFTKeyboardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 30020C1A1FECF80A00565A68 /* JFTKeyboardManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,21 +42,31 @@
 
 /* Begin PBXFileReference section */
 		30020BD01FECF7E900565A68 /* JFTKeyboardManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JFTKeyboardManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		30020BD31FECF7EA00565A68 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		30020BD41FECF7EA00565A68 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		30020BD61FECF7EA00565A68 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		30020BD71FECF7EA00565A68 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		30020BDA1FECF7EA00565A68 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		30020BDC1FECF7EA00565A68 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		30020BDF1FECF7EA00565A68 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		30020BE11FECF7EA00565A68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		30020BE21FECF7EA00565A68 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		30020BE81FECF7EA00565A68 /* JFTKeyboardManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JFTKeyboardManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		30020BEC1FECF7EA00565A68 /* JFTKeyboardManagerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JFTKeyboardManagerTests.m; sourceTree = "<group>"; };
 		30020BEE1FECF7EA00565A68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		30020BF31FECF7EA00565A68 /* JFTKeyboardManagerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JFTKeyboardManagerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		30020BF71FECF7EA00565A68 /* JFTKeyboardManagerUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JFTKeyboardManagerUITests.m; sourceTree = "<group>"; };
 		30020BF91FECF7EA00565A68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		30020C051FECF80700565A68 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		30020C071FECF80700565A68 /* UIScrollView+JFTKeyboardAvoid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+JFTKeyboardAvoid.m"; sourceTree = "<group>"; };
+		30020C081FECF80700565A68 /* UIView+JFTKeyboardHierarchy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+JFTKeyboardHierarchy.h"; sourceTree = "<group>"; };
+		30020C091FECF80700565A68 /* UIView+JFTKeyboardHierarchy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+JFTKeyboardHierarchy.m"; sourceTree = "<group>"; };
+		30020C0A1FECF80700565A68 /* UIScrollView+JFTKeyboardAvoid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+JFTKeyboardAvoid.h"; sourceTree = "<group>"; };
+		30020C0B1FECF80700565A68 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		30020C0E1FECF80700565A68 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		30020C101FECF80700565A68 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Main.storyboard; sourceTree = "<group>"; };
+		30020C111FECF80700565A68 /* TestContentTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestContentTextView.m; sourceTree = "<group>"; };
+		30020C121FECF80700565A68 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		30020C131FECF80800565A68 /* JFTKeyboardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JFTKeyboardManager.h; sourceTree = "<group>"; };
+		30020C141FECF80800565A68 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		30020C151FECF80800565A68 /* TestContentTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestContentTextView.h; sourceTree = "<group>"; };
+		30020C161FECF80900565A68 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		30020C171FECF80A00565A68 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		30020C181FECF80A00565A68 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		30020C191FECF80A00565A68 /* JFTKeyboardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JFTKeyboardModel.m; sourceTree = "<group>"; };
+		30020C1A1FECF80A00565A68 /* JFTKeyboardManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JFTKeyboardManager.m; sourceTree = "<group>"; };
+		30020C1B1FECF80A00565A68 /* JFTKeyboardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JFTKeyboardModel.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,15 +117,21 @@
 		30020BD21FECF7E900565A68 /* JFTKeyboardManager */ = {
 			isa = PBXGroup;
 			children = (
-				30020BD31FECF7EA00565A68 /* AppDelegate.h */,
-				30020BD41FECF7EA00565A68 /* AppDelegate.m */,
-				30020BD61FECF7EA00565A68 /* ViewController.h */,
-				30020BD71FECF7EA00565A68 /* ViewController.m */,
-				30020BD91FECF7EA00565A68 /* Main.storyboard */,
-				30020BDC1FECF7EA00565A68 /* Assets.xcassets */,
-				30020BDE1FECF7EA00565A68 /* LaunchScreen.storyboard */,
-				30020BE11FECF7EA00565A68 /* Info.plist */,
-				30020BE21FECF7EA00565A68 /* main.m */,
+				30020C161FECF80900565A68 /* AppDelegate.h */,
+				30020C051FECF80700565A68 /* AppDelegate.m */,
+				30020C181FECF80A00565A68 /* Assets.xcassets */,
+				30020C0C1FECF80700565A68 /* Base.lproj */,
+				30020C061FECF80700565A68 /* Categories */,
+				30020C0B1FECF80700565A68 /* Info.plist */,
+				30020C131FECF80800565A68 /* JFTKeyboardManager.h */,
+				30020C1A1FECF80A00565A68 /* JFTKeyboardManager.m */,
+				30020C1B1FECF80A00565A68 /* JFTKeyboardModel.h */,
+				30020C191FECF80A00565A68 /* JFTKeyboardModel.m */,
+				30020C141FECF80800565A68 /* main.m */,
+				30020C151FECF80800565A68 /* TestContentTextView.h */,
+				30020C111FECF80700565A68 /* TestContentTextView.m */,
+				30020C121FECF80700565A68 /* ViewController.h */,
+				30020C171FECF80A00565A68 /* ViewController.m */,
 			);
 			path = JFTKeyboardManager;
 			sourceTree = "<group>";
@@ -130,6 +152,26 @@
 				30020BF91FECF7EA00565A68 /* Info.plist */,
 			);
 			path = JFTKeyboardManagerUITests;
+			sourceTree = "<group>";
+		};
+		30020C061FECF80700565A68 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				30020C071FECF80700565A68 /* UIScrollView+JFTKeyboardAvoid.m */,
+				30020C081FECF80700565A68 /* UIView+JFTKeyboardHierarchy.h */,
+				30020C091FECF80700565A68 /* UIView+JFTKeyboardHierarchy.m */,
+				30020C0A1FECF80700565A68 /* UIScrollView+JFTKeyboardAvoid.h */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		30020C0C1FECF80700565A68 /* Base.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				30020C0D1FECF80700565A68 /* LaunchScreen.storyboard */,
+				30020C0F1FECF80700565A68 /* Main.storyboard */,
+			);
+			path = Base.lproj;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -238,9 +280,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				30020BE01FECF7EA00565A68 /* LaunchScreen.storyboard in Resources */,
-				30020BDD1FECF7EA00565A68 /* Assets.xcassets in Resources */,
-				30020BDB1FECF7EA00565A68 /* Main.storyboard in Resources */,
+				30020C211FECF80B00565A68 /* Main.storyboard in Resources */,
+				30020C1F1FECF80B00565A68 /* Info.plist in Resources */,
+				30020C251FECF80B00565A68 /* Assets.xcassets in Resources */,
+				30020C201FECF80B00565A68 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,9 +308,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				30020BD81FECF7EA00565A68 /* ViewController.m in Sources */,
-				30020BE31FECF7EA00565A68 /* main.m in Sources */,
-				30020BD51FECF7EA00565A68 /* AppDelegate.m in Sources */,
+				30020C271FECF80B00565A68 /* JFTKeyboardManager.m in Sources */,
+				30020C241FECF80B00565A68 /* ViewController.m in Sources */,
+				30020C231FECF80B00565A68 /* main.m in Sources */,
+				30020C261FECF80B00565A68 /* JFTKeyboardModel.m in Sources */,
+				30020C1C1FECF80B00565A68 /* AppDelegate.m in Sources */,
+				30020C1E1FECF80B00565A68 /* UIView+JFTKeyboardHierarchy.m in Sources */,
+				30020C1D1FECF80B00565A68 /* UIScrollView+JFTKeyboardAvoid.m in Sources */,
+				30020C221FECF80B00565A68 /* TestContentTextView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,20 +351,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		30020BD91FECF7EA00565A68 /* Main.storyboard */ = {
+		30020C0D1FECF80700565A68 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				30020BDA1FECF7EA00565A68 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		30020BDE1FECF7EA00565A68 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				30020BDF1FECF7EA00565A68 /* Base */,
+				30020C0E1FECF80700565A68 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		30020C0F1FECF80700565A68 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				30020C101FECF80700565A68 /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
