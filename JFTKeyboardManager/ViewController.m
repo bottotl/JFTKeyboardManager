@@ -7,8 +7,13 @@
 //
 
 #import "ViewController.h"
+#import "JFTKeyboardManager.h"
+#import "TestContentTextView.h"
 
 @interface ViewController ()
+@property (strong, nonatomic) IBOutlet UIScrollView *view;
+
+@property (weak, nonatomic) IBOutlet TestContentTextView *textView;
 
 @end
 
@@ -17,6 +22,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    [JFTKeyboardManager sharedManager];
+    self.view.contentInset = UIEdgeInsetsMake(1000, 0, 1000, 0);
+}
+
+- (IBAction)buttonClick:(id)sender {
+    [self.textView resignFirstResponder];
 }
 
 
