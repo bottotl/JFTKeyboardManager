@@ -1,0 +1,551 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		30020BD51FECF7EA00565A68 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 30020BD41FECF7EA00565A68 /* AppDelegate.m */; };
+		30020BD81FECF7EA00565A68 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30020BD71FECF7EA00565A68 /* ViewController.m */; };
+		30020BDB1FECF7EA00565A68 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30020BD91FECF7EA00565A68 /* Main.storyboard */; };
+		30020BDD1FECF7EA00565A68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30020BDC1FECF7EA00565A68 /* Assets.xcassets */; };
+		30020BE01FECF7EA00565A68 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30020BDE1FECF7EA00565A68 /* LaunchScreen.storyboard */; };
+		30020BE31FECF7EA00565A68 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 30020BE21FECF7EA00565A68 /* main.m */; };
+		30020BED1FECF7EA00565A68 /* JFTKeyboardManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 30020BEC1FECF7EA00565A68 /* JFTKeyboardManagerTests.m */; };
+		30020BF81FECF7EA00565A68 /* JFTKeyboardManagerUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 30020BF71FECF7EA00565A68 /* JFTKeyboardManagerUITests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		30020BE91FECF7EA00565A68 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 30020BC81FECF7E900565A68 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 30020BCF1FECF7E900565A68;
+			remoteInfo = JFTKeyboardManager;
+		};
+		30020BF41FECF7EA00565A68 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 30020BC81FECF7E900565A68 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 30020BCF1FECF7E900565A68;
+			remoteInfo = JFTKeyboardManager;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		30020BD01FECF7E900565A68 /* JFTKeyboardManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JFTKeyboardManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		30020BD31FECF7EA00565A68 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		30020BD41FECF7EA00565A68 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		30020BD61FECF7EA00565A68 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		30020BD71FECF7EA00565A68 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		30020BDA1FECF7EA00565A68 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		30020BDC1FECF7EA00565A68 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		30020BDF1FECF7EA00565A68 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		30020BE11FECF7EA00565A68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		30020BE21FECF7EA00565A68 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		30020BE81FECF7EA00565A68 /* JFTKeyboardManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JFTKeyboardManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		30020BEC1FECF7EA00565A68 /* JFTKeyboardManagerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JFTKeyboardManagerTests.m; sourceTree = "<group>"; };
+		30020BEE1FECF7EA00565A68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		30020BF31FECF7EA00565A68 /* JFTKeyboardManagerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JFTKeyboardManagerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		30020BF71FECF7EA00565A68 /* JFTKeyboardManagerUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JFTKeyboardManagerUITests.m; sourceTree = "<group>"; };
+		30020BF91FECF7EA00565A68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		30020BCD1FECF7E900565A68 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		30020BE51FECF7EA00565A68 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		30020BF01FECF7EA00565A68 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		30020BC71FECF7E900565A68 = {
+			isa = PBXGroup;
+			children = (
+				30020BD21FECF7E900565A68 /* JFTKeyboardManager */,
+				30020BEB1FECF7EA00565A68 /* JFTKeyboardManagerTests */,
+				30020BF61FECF7EA00565A68 /* JFTKeyboardManagerUITests */,
+				30020BD11FECF7E900565A68 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		30020BD11FECF7E900565A68 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				30020BD01FECF7E900565A68 /* JFTKeyboardManager.app */,
+				30020BE81FECF7EA00565A68 /* JFTKeyboardManagerTests.xctest */,
+				30020BF31FECF7EA00565A68 /* JFTKeyboardManagerUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		30020BD21FECF7E900565A68 /* JFTKeyboardManager */ = {
+			isa = PBXGroup;
+			children = (
+				30020BD31FECF7EA00565A68 /* AppDelegate.h */,
+				30020BD41FECF7EA00565A68 /* AppDelegate.m */,
+				30020BD61FECF7EA00565A68 /* ViewController.h */,
+				30020BD71FECF7EA00565A68 /* ViewController.m */,
+				30020BD91FECF7EA00565A68 /* Main.storyboard */,
+				30020BDC1FECF7EA00565A68 /* Assets.xcassets */,
+				30020BDE1FECF7EA00565A68 /* LaunchScreen.storyboard */,
+				30020BE11FECF7EA00565A68 /* Info.plist */,
+				30020BE21FECF7EA00565A68 /* main.m */,
+			);
+			path = JFTKeyboardManager;
+			sourceTree = "<group>";
+		};
+		30020BEB1FECF7EA00565A68 /* JFTKeyboardManagerTests */ = {
+			isa = PBXGroup;
+			children = (
+				30020BEC1FECF7EA00565A68 /* JFTKeyboardManagerTests.m */,
+				30020BEE1FECF7EA00565A68 /* Info.plist */,
+			);
+			path = JFTKeyboardManagerTests;
+			sourceTree = "<group>";
+		};
+		30020BF61FECF7EA00565A68 /* JFTKeyboardManagerUITests */ = {
+			isa = PBXGroup;
+			children = (
+				30020BF71FECF7EA00565A68 /* JFTKeyboardManagerUITests.m */,
+				30020BF91FECF7EA00565A68 /* Info.plist */,
+			);
+			path = JFTKeyboardManagerUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		30020BCF1FECF7E900565A68 /* JFTKeyboardManager */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 30020BFC1FECF7EA00565A68 /* Build configuration list for PBXNativeTarget "JFTKeyboardManager" */;
+			buildPhases = (
+				30020BCC1FECF7E900565A68 /* Sources */,
+				30020BCD1FECF7E900565A68 /* Frameworks */,
+				30020BCE1FECF7E900565A68 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = JFTKeyboardManager;
+			productName = JFTKeyboardManager;
+			productReference = 30020BD01FECF7E900565A68 /* JFTKeyboardManager.app */;
+			productType = "com.apple.product-type.application";
+		};
+		30020BE71FECF7EA00565A68 /* JFTKeyboardManagerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 30020BFF1FECF7EA00565A68 /* Build configuration list for PBXNativeTarget "JFTKeyboardManagerTests" */;
+			buildPhases = (
+				30020BE41FECF7EA00565A68 /* Sources */,
+				30020BE51FECF7EA00565A68 /* Frameworks */,
+				30020BE61FECF7EA00565A68 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				30020BEA1FECF7EA00565A68 /* PBXTargetDependency */,
+			);
+			name = JFTKeyboardManagerTests;
+			productName = JFTKeyboardManagerTests;
+			productReference = 30020BE81FECF7EA00565A68 /* JFTKeyboardManagerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		30020BF21FECF7EA00565A68 /* JFTKeyboardManagerUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 30020C021FECF7EA00565A68 /* Build configuration list for PBXNativeTarget "JFTKeyboardManagerUITests" */;
+			buildPhases = (
+				30020BEF1FECF7EA00565A68 /* Sources */,
+				30020BF01FECF7EA00565A68 /* Frameworks */,
+				30020BF11FECF7EA00565A68 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				30020BF51FECF7EA00565A68 /* PBXTargetDependency */,
+			);
+			name = JFTKeyboardManagerUITests;
+			productName = JFTKeyboardManagerUITests;
+			productReference = 30020BF31FECF7EA00565A68 /* JFTKeyboardManagerUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		30020BC81FECF7E900565A68 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0920;
+				ORGANIZATIONNAME = syfll;
+				TargetAttributes = {
+					30020BCF1FECF7E900565A68 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+					30020BE71FECF7EA00565A68 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 30020BCF1FECF7E900565A68;
+					};
+					30020BF21FECF7EA00565A68 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 30020BCF1FECF7E900565A68;
+					};
+				};
+			};
+			buildConfigurationList = 30020BCB1FECF7E900565A68 /* Build configuration list for PBXProject "JFTKeyboardManager" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 30020BC71FECF7E900565A68;
+			productRefGroup = 30020BD11FECF7E900565A68 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				30020BCF1FECF7E900565A68 /* JFTKeyboardManager */,
+				30020BE71FECF7EA00565A68 /* JFTKeyboardManagerTests */,
+				30020BF21FECF7EA00565A68 /* JFTKeyboardManagerUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		30020BCE1FECF7E900565A68 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				30020BE01FECF7EA00565A68 /* LaunchScreen.storyboard in Resources */,
+				30020BDD1FECF7EA00565A68 /* Assets.xcassets in Resources */,
+				30020BDB1FECF7EA00565A68 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		30020BE61FECF7EA00565A68 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		30020BF11FECF7EA00565A68 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		30020BCC1FECF7E900565A68 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				30020BD81FECF7EA00565A68 /* ViewController.m in Sources */,
+				30020BE31FECF7EA00565A68 /* main.m in Sources */,
+				30020BD51FECF7EA00565A68 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		30020BE41FECF7EA00565A68 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				30020BED1FECF7EA00565A68 /* JFTKeyboardManagerTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		30020BEF1FECF7EA00565A68 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				30020BF81FECF7EA00565A68 /* JFTKeyboardManagerUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		30020BEA1FECF7EA00565A68 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 30020BCF1FECF7E900565A68 /* JFTKeyboardManager */;
+			targetProxy = 30020BE91FECF7EA00565A68 /* PBXContainerItemProxy */;
+		};
+		30020BF51FECF7EA00565A68 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 30020BCF1FECF7E900565A68 /* JFTKeyboardManager */;
+			targetProxy = 30020BF41FECF7EA00565A68 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		30020BD91FECF7EA00565A68 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				30020BDA1FECF7EA00565A68 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		30020BDE1FECF7EA00565A68 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				30020BDF1FECF7EA00565A68 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		30020BFA1FECF7EA00565A68 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		30020BFB1FECF7EA00565A68 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		30020BFD1FECF7EA00565A68 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = JFTKeyboardManager/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = dianping.JFTKeyboardManager;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		30020BFE1FECF7EA00565A68 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = JFTKeyboardManager/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = dianping.JFTKeyboardManager;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		30020C001FECF7EA00565A68 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = JFTKeyboardManagerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = dianping.JFTKeyboardManagerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JFTKeyboardManager.app/JFTKeyboardManager";
+			};
+			name = Debug;
+		};
+		30020C011FECF7EA00565A68 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = JFTKeyboardManagerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = dianping.JFTKeyboardManagerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JFTKeyboardManager.app/JFTKeyboardManager";
+			};
+			name = Release;
+		};
+		30020C031FECF7EA00565A68 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = JFTKeyboardManagerUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = dianping.JFTKeyboardManagerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = JFTKeyboardManager;
+			};
+			name = Debug;
+		};
+		30020C041FECF7EA00565A68 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = JFTKeyboardManagerUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = dianping.JFTKeyboardManagerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = JFTKeyboardManager;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		30020BCB1FECF7E900565A68 /* Build configuration list for PBXProject "JFTKeyboardManager" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				30020BFA1FECF7EA00565A68 /* Debug */,
+				30020BFB1FECF7EA00565A68 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		30020BFC1FECF7EA00565A68 /* Build configuration list for PBXNativeTarget "JFTKeyboardManager" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				30020BFD1FECF7EA00565A68 /* Debug */,
+				30020BFE1FECF7EA00565A68 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		30020BFF1FECF7EA00565A68 /* Build configuration list for PBXNativeTarget "JFTKeyboardManagerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				30020C001FECF7EA00565A68 /* Debug */,
+				30020C011FECF7EA00565A68 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		30020C021FECF7EA00565A68 /* Build configuration list for PBXNativeTarget "JFTKeyboardManagerUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				30020C031FECF7EA00565A68 /* Debug */,
+				30020C041FECF7EA00565A68 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 30020BC81FECF7E900565A68 /* Project object */;
+}
