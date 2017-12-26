@@ -34,6 +34,7 @@ static const CGFloat emojiKeyboardHeight = 216;
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
 //    [JFTKeyboardManager sharedManager];
+    self.textView.jft_inputAccessoryViewStyle = JFTInputAccessoryViewStyleEmoji;
     ((UIScrollView *)self.view).contentInset = UIEdgeInsetsMake(1000, 0, 1000, 0);
 }
 
