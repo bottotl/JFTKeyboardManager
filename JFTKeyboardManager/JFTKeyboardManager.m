@@ -10,12 +10,13 @@
 #import <objc/runtime.h>
 #import "UIView+JFTKeyboardHierarchy.h"
 #import "JFTKeyboardModel.h"
+#import "UIResponder+JFTFirstResponder.h"
 
 static JFTKeyboardManager * _sharadManager = nil;
 
 @interface JFTKeyboardManager()
 @property (nonatomic, strong) NSMutableSet<Class> *enabledClasses;
-@property (nonatomic, weak) UITextView *currentActiveTextView;
+@property (nonatomic, readonly) UITextView *currentActiveTextView;
 @property (nonatomic, strong) JFTKeyboardModel *keyboardModel;///< save keyboard info
 @end
 
@@ -73,15 +74,10 @@ static JFTKeyboardManager * _sharadManager = nil;
 }
 
 - (void)textViewDidBeginEditing:(NSNotification *)aNotification {
-    UITextView *textView = aNotification.object;
-    if ([self.enabledClasses containsObject:textView.class]) {
-        self.currentActiveTextView = textView;
-    }
     [self adjustFrameIfNeed];
 }
 
 - (void)textViewDidEndEditing:(NSNotification *)aNotification {
-    self.currentActiveTextView = nil;
 }
 
 - (void)adjustFrameIfNeed {
@@ -113,6 +109,16 @@ static JFTKeyboardManager * _sharadManager = nil;
         return NO;
     }
     return YES;
+}
+
+- (UITextView *)currentActiveTextView {
+    NSObject *firstResponder = [UIResponder jft_currentFirstResponder];
+    if (!firstResponder) return nil;
+    if ([self.enabledClasses containsObject:firstResponder.class]) {
+        return (UITextView *)firstResponder;
+    } else {
+        return nil;
+    }
 }
 
 - (void)updateKeyboardModelWithKeyboardNotification:(NSNotification *)aNotification {
