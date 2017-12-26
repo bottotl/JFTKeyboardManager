@@ -9,7 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "JFTKeyboardManager.h"
 
+typedef NS_ENUM(NSInteger, JFTInputAccessoryViewStyle) {
+    JFTInputAccessoryViewStyleNone,
+    JFTInputAccessoryViewStyleEmoji
+};
+
 @interface UITextView (JFTInputView)
+@property (nonatomic, assign) JFTInputAccessoryViewStyle jft_inputAccessoryViewStyle;
 - (void)jft_changeToCustomInputView:(UIView *)customView;
 - (void)jft_changeToDefaultInputView;
 @end
