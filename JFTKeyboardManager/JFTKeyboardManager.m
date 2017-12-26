@@ -60,9 +60,16 @@ static JFTKeyboardManager * _sharadManager = nil;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardDidHideNotification object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardFrameWillChange:) name:UIKeyboardWillChangeFrameNotification object:nil];
+    
     //  Registering for UITextView notification.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textViewDidBeginEditing:) name:UITextViewTextDidBeginEditingNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textViewDidEndEditing:) name:UITextViewTextDidEndEditingNotification object:nil];
+}
+
+- (void)keyboardFrameWillChange:(NSNotification *)aNotification {
+    [self updateKeyboardModelWithKeyboardNotification:aNotification];
+    [self adjustFrameIfNeed];
 }
 
 - (void)keyboardWillShow:(NSNotification *)aNotification {
