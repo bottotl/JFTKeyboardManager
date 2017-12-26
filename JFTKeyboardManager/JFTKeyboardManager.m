@@ -12,6 +12,8 @@
 #import "JFTKeyboardModel.h"
 #import "UIResponder+JFTFirstResponder.h"
 #import "UIScrollView+JFTKeyboardManager.h"
+#import "UITextView+JFTInputView.h"
+#import "JFTTestEmojiInputAccessoryView.h"
 
 static JFTKeyboardManager * _sharadManager = nil;
 
@@ -19,6 +21,7 @@ static JFTKeyboardManager * _sharadManager = nil;
 @property (nonatomic, strong) NSMutableSet<Class> *enabledClasses;
 @property (nonatomic, readonly) UITextView *currentActiveTextView;
 @property (nonatomic, strong) JFTKeyboardModel *keyboardModel;///< save keyboard info
+@property (nonatomic, strong) JFTTestEmojiInputAccessoryView *customInputAccessoryView;
 @end
 
 @implementation JFTKeyboardManager
@@ -39,6 +42,23 @@ static JFTKeyboardManager * _sharadManager = nil;
         CGRect windowRect = [UIApplication sharedApplication].keyWindow.bounds;
         _customInputView.frame = CGRectMake(0, 0, CGRectGetWidth(windowRect), 210);
         _customInputView.backgroundColor = [UIColor blueColor];
+        
+        _customInputAccessoryView = [[JFTTestEmojiInputAccessoryView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(windowRect), 100)];
+        __weak typeof(self) WeakSelf = self;
+        _customInputAccessoryView.dismissKeyboardBlock = ^(void) {
+            if ([WeakSelf.currentActiveTextView isFirstResponder]) {
+                [WeakSelf.currentActiveTextView resignFirstResponder];
+            }
+        };
+        
+        _customInputAccessoryView.keyboardStateChangeBlock = ^(JFTTestEmojiInputAccessoryKeyboardState state) {
+            if (state == JFTTestEmojiInputAccessoryKeyboardStateSystem) {
+                [WeakSelf.currentActiveTextView jft_changeToDefaultInputView];
+            } else {
+                [WeakSelf.currentActiveTextView jft_changeToCustomInputView:WeakSelf.customInputView];
+            }
+        };
+        
     }
     return self;
 }

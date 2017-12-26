@@ -15,5 +15,6 @@
 @property(nonatomic, readonly) NSMutableSet<Class> *enabledClasses;
 
 @property (nonatomic, strong) UIView *customInputView;
+@property (nonatomic, readonly) UIView *customInputAccessoryView;
 - (void)adjustFrameIfNeed;
 @end
