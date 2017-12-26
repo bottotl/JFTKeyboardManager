@@ -100,9 +100,11 @@ static JFTKeyboardManager * _sharadManager = nil;
 
 - (void)adjustFrameIfNeed {
     if (!self.currentActiveTextView) return;
-
+    
+    UITextView *textView = self.currentActiveTextView;
+    
     UIScrollView *superScrollView = nil;
-    UIScrollView *superView = (UIScrollView*)[self.currentActiveTextView superviewOfClassType:[UIScrollView class]];
+    UIScrollView *superView = (UIScrollView*)[textView superviewOfClassType:[UIScrollView class]];
     //Getting UIScrollView whose scrolling is enabled.
     while (superView) {
         if (superView.isScrollEnabled) {
@@ -115,9 +117,9 @@ static JFTKeyboardManager * _sharadManager = nil;
     // adjust frame
     if (!superView) return;
     
-    UIWindow *keyWindow = self.currentActiveTextView.window;
-    CGRect textViewRect = [self.currentActiveTextView convertRect:self.currentActiveTextView.bounds
-                                                           toView:keyWindow];
+    UIWindow *keyWindow = textView.window;
+    CGRect textViewRect = [textView convertRect:textView.bounds
+                                         toView:keyWindow];
     if (![self isKeyboardCoverTextView:self.keyboardModel textViewRectInWindow:textViewRect]) {
         /// keyboard does not cover textview nothing need to do, direct return
         return;
