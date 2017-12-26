@@ -34,10 +34,26 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P2i-oO-Q24">
+                                <rect key="frame" x="16" y="73" width="123" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="test first respondr"/>
+                                <connections>
+                                    <action selector="testFirstResponder:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tj2-li-hfb"/>
+                                </connections>
+                            </button>
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minimumValue="-200" maximumValue="200" stepValue="50" translatesAutoresizingMaskIntoConstraints="NO" id="ANX-GB-fD7">
+                                <rect key="frame" x="143" y="440" width="94" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="stepperValueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="phz-gS-hL9"/>
+                                </connections>
+                            </stepper>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <navigationItem key="navigationItem" id="RjB-aU-pbJ"/>
                     <connections>
                         <outlet property="textView" destination="5Go-nx-Dhl" id="JGq-on-vMc"/>
                         <outlet property="view" destination="8bC-Xf-vdC" id="xWm-Dh-UwO"/>
@@ -45,7 +61,49 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="117.59999999999999" y="118.29085457271366"/>
+            <point key="canvasLocation" x="609" y="116"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="9Wd-fN-WKx">
+            <objects>
+                <viewController id="QOG-Uv-KwF" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="GsJ-wV-zVC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lzd-D7-ihJ">
+                                <rect key="frame" x="147" y="318" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="qOV-r7-QJv"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="Gtp-Rx-bzf"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="gh3-Je-neb"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Epw-Bv-iNZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-44" y="117"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="UHg-3i-Mqr">
+            <objects>
+                <navigationController id="NNA-qa-SVn" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Zjp-Jj-Rjp">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="QOG-Uv-KwF" kind="relationship" relationship="rootViewController" id="DjT-7a-bFH"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="T0h-wk-bSY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-670" y="118"/>
         </scene>
     </scenes>
 </document>
