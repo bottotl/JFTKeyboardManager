@@ -44,11 +44,11 @@ static const CGFloat emojiKeyboardHeight = 216;
 
 - (IBAction)testFirstResponder:(id)sender {
     [UIResponder jft_currentFirstResponder];
-    if (self.textView.inputView) {
-        [self.textView jft_changeToDefaultInputView];
-    } else {
-        [self.textView jft_changeToCustomInputView:[JFTKeyboardManager sharedManager].customInputView];
-    }
+//    if (self.textView.inputView) {
+//        [self.textView jft_changeToDefaultInputView];
+//    } else {
+//        [self.textView jft_changeToCustomInputView:[JFTKeyboardManager sharedManager].customInputView];
+//    }
 }
 
 
