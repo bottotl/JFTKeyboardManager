@@ -11,6 +11,7 @@
 #import "UIView+JFTKeyboardHierarchy.h"
 #import "JFTKeyboardModel.h"
 #import "UIResponder+JFTFirstResponder.h"
+#import "UIScrollView+JFTKeyboardManager.h"
 
 static JFTKeyboardManager * _sharadManager = nil;
 
@@ -99,11 +100,7 @@ static JFTKeyboardManager * _sharadManager = nil;
 
 - (void)adjustFrameIfNeed {
     if (!self.currentActiveTextView) return;
-    
-    UIWindow *keyWindow = self.currentActiveTextView.window;
-    CGRect textViewRect = [self.currentActiveTextView convertRect:self.currentActiveTextView.bounds
-                                                           toView:keyWindow];
-    
+
     UIScrollView *superScrollView = nil;
     UIScrollView *superView = (UIScrollView*)[self.currentActiveTextView superviewOfClassType:[UIScrollView class]];
     //Getting UIScrollView whose scrolling is enabled.
@@ -116,7 +113,36 @@ static JFTKeyboardManager * _sharadManager = nil;
         }
     }
     // adjust frame
-    NSLog(@"isKeyboardCoverTextView === %@", @([self isKeyboardCoverTextView:self.keyboardModel textViewRectInWindow:textViewRect]));
+    if (!superView) return;
+    
+    UIWindow *keyWindow = self.currentActiveTextView.window;
+    CGRect textViewRect = [self.currentActiveTextView convertRect:self.currentActiveTextView.bounds
+                                                           toView:keyWindow];
+    if (![self isKeyboardCoverTextView:self.keyboardModel textViewRectInWindow:textViewRect]) {
+        /// keyboard does not cover textview nothing need to do, direct return
+        return;
+    }
+    
+    CGFloat offsetY = 0;
+    {
+        CGRect keyboardFrame = self.keyboardModel.frameEnd;
+        CGRect intersectRect = CGRectIntersection(textViewRect, keyboardFrame);
+        offsetY = intersectRect.size.height;
+    }
+    
+    CGFloat maxOffset = superView.contentOffset.y + superView.bounds.size.height + superView.contentInset.bottom + superView.contentInset.top;
+    
+    CGFloat targetContentOffsetY = superView.contentOffset.y + offsetY;
+    if (maxOffset < targetContentOffsetY) {
+        superView.jft_originContentInsetValue = [NSValue valueWithUIEdgeInsets:superView.contentInset];
+        CGFloat offset = targetContentOffsetY - maxOffset;
+        UIEdgeInsets newContentInset;
+        newContentInset = superView.contentInset;
+        newContentInset.bottom += offset;
+    }
+    
+    superView.contentOffset = CGPointMake(superView.contentOffset.x, targetContentOffsetY);
+//    NSLog(@"isKeyboardCoverTextView === %@", @());
 }
 
 - (BOOL)isKeyboardCoverTextView:(JFTKeyboardModel *)keyboardModel textViewRectInWindow:(CGRect)rect {
