@@ -32,6 +32,16 @@ static JFTKeyboardManager * _sharadManager = nil;
     return _sharadManager;
 }
 
+- (instancetype)init {
+    if (self = [super init]) {
+        _customInputView = [UIView new];
+        CGRect windowRect = [UIApplication sharedApplication].keyWindow.bounds;
+        _customInputView.frame = CGRectMake(0, 0, CGRectGetWidth(windowRect), 210);
+        _customInputView.backgroundColor = [UIColor blueColor];
+    }
+    return self;
+}
+
 - (NSMutableSet<Class> *)enabledClasses {
     if (!_enabledClasses) {
         NSMutableSet *classList = [NSMutableSet set];
