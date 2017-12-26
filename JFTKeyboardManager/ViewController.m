@@ -10,7 +10,6 @@
 #import "JFTKeyboardManager.h"
 #import "TestContentTextView.h"
 #import "UIResponder+JFTFirstResponder.h"
-
 #import "UITextView+JFTInputView.h"
 
 static const CGFloat emojiKeyboardHeight = 216;
@@ -34,7 +33,7 @@ static const CGFloat emojiKeyboardHeight = 216;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    [JFTKeyboardManager sharedManager];
+//    [JFTKeyboardManager sharedManager];
     ((UIScrollView *)self.view).contentInset = UIEdgeInsetsMake(1000, 0, 1000, 0);
 }
 
