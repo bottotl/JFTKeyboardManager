@@ -103,6 +103,8 @@ static JFTKeyboardManager * _sharadManager = nil;
 }
 
 - (void)keyboardWillHide:(NSNotification *)aNotification {
+    [self.customInputAccessoryView reset];
+    self.currentActiveTextView.inputView = nil;
     [self updateKeyboardModelWithKeyboardNotification:aNotification];
     [self adjustFrameIfNeed];
 }

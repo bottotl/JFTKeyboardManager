@@ -71,4 +71,9 @@
     }
 }
 
+- (void)reset {
+    self.keyboardState = JFTTestEmojiInputAccessoryKeyboardStateSystem;
+    [self updateEmojiItem];
+}
+
 @end

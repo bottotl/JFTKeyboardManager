@@ -15,4 +15,7 @@ typedef NS_ENUM(NSInteger, JFTTestEmojiInputAccessoryKeyboardState) {
 @property (nonatomic, readonly) JFTTestEmojiInputAccessoryKeyboardState keyboardState;
 @property (nonatomic, copy) void(^dismissKeyboardBlock)(void);
 @property (nonatomic, copy) void(^keyboardStateChangeBlock)(JFTTestEmojiInputAccessoryKeyboardState state);
+
+- (void)reset;
+
 @end
