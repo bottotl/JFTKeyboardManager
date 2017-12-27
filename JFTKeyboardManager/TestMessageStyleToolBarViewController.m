@@ -21,10 +21,6 @@
     [self.view addSubview:self.jft_toolBar];
 }
 - (IBAction)updateHeight:(id)sender {
-    self.jft_toolBar.textView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.jft_toolBar.textView sizeToFit];
-    self.jft_toolBar.textView.scrollEnabled = NO;
-    [self.jft_toolBar.textView invalidateIntrinsicContentSize];
 }
 
 - (void)didReceiveMemoryWarning {
