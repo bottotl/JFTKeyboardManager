@@ -14,7 +14,6 @@
 		30020C1F1FECF80B00565A68 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 30020C0B1FECF80700565A68 /* Info.plist */; };
 		30020C201FECF80B00565A68 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30020C0D1FECF80700565A68 /* LaunchScreen.storyboard */; };
 		30020C211FECF80B00565A68 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30020C0F1FECF80700565A68 /* Main.storyboard */; };
-		30020C221FECF80B00565A68 /* TestContentTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30020C111FECF80700565A68 /* TestContentTextView.m */; };
 		30020C231FECF80B00565A68 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 30020C141FECF80800565A68 /* main.m */; };
 		30020C241FECF80B00565A68 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30020C171FECF80A00565A68 /* ViewController.m */; };
 		30020C251FECF80B00565A68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30020C181FECF80A00565A68 /* Assets.xcassets */; };
@@ -27,6 +26,9 @@
 		3002FCE11FF22ED600E525CC /* JFTTestEmojiInputAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3002FCE01FF22ED600E525CC /* JFTTestEmojiInputAccessoryView.m */; };
 		3002FCE71FF243D400E525CC /* TestMessageStyleToolBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3002FCE61FF243D400E525CC /* TestMessageStyleToolBarViewController.m */; };
 		3002FCEA1FF2445800E525CC /* JFTTestMessageStyleToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 3002FCE91FF2445800E525CC /* JFTTestMessageStyleToolBar.m */; };
+		3002FCF11FF3759400E525CC /* JFTTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3002FCEB1FF3759400E525CC /* JFTTextView.m */; };
+		3002FCF21FF3759400E525CC /* UITextViewDelegate+JVTNextGrowingTextViewTextViewDelegateExntention.m in Sources */ = {isa = PBXBuildFile; fileRef = 3002FCEC1FF3759400E525CC /* UITextViewDelegate+JVTNextGrowingTextViewTextViewDelegateExntention.m */; };
+		3002FCF31FF3759400E525CC /* JFTInternalTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3002FCED1FF3759400E525CC /* JFTInternalTextView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,11 +60,9 @@
 		30020C0B1FECF80700565A68 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		30020C0E1FECF80700565A68 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		30020C101FECF80700565A68 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Main.storyboard; sourceTree = "<group>"; };
-		30020C111FECF80700565A68 /* TestContentTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestContentTextView.m; sourceTree = "<group>"; };
 		30020C121FECF80700565A68 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		30020C131FECF80800565A68 /* JFTKeyboardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JFTKeyboardManager.h; sourceTree = "<group>"; };
 		30020C141FECF80800565A68 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		30020C151FECF80800565A68 /* TestContentTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestContentTextView.h; sourceTree = "<group>"; };
 		30020C161FECF80900565A68 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		30020C171FECF80A00565A68 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		30020C181FECF80A00565A68 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -83,6 +83,12 @@
 		3002FCE61FF243D400E525CC /* TestMessageStyleToolBarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestMessageStyleToolBarViewController.m; sourceTree = "<group>"; };
 		3002FCE81FF2445800E525CC /* JFTTestMessageStyleToolBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JFTTestMessageStyleToolBar.h; sourceTree = "<group>"; };
 		3002FCE91FF2445800E525CC /* JFTTestMessageStyleToolBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JFTTestMessageStyleToolBar.m; sourceTree = "<group>"; };
+		3002FCEB1FF3759400E525CC /* JFTTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JFTTextView.m; sourceTree = "<group>"; };
+		3002FCEC1FF3759400E525CC /* UITextViewDelegate+JVTNextGrowingTextViewTextViewDelegateExntention.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextViewDelegate+JVTNextGrowingTextViewTextViewDelegateExntention.m"; sourceTree = "<group>"; };
+		3002FCED1FF3759400E525CC /* JFTInternalTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JFTInternalTextView.m; sourceTree = "<group>"; };
+		3002FCEE1FF3759400E525CC /* UITextViewDelegate+JVTNextGrowingTextViewTextViewDelegateExntention.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextViewDelegate+JVTNextGrowingTextViewTextViewDelegateExntention.h"; sourceTree = "<group>"; };
+		3002FCEF1FF3759400E525CC /* JFTInternalTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JFTInternalTextView.h; sourceTree = "<group>"; };
+		3002FCF01FF3759400E525CC /* JFTTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JFTTextView.h; sourceTree = "<group>"; };
 		66ACC21F038AB015362AED63 /* Pods-JFTKeyboardManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JFTKeyboardManager.release.xcconfig"; path = "Pods/Target Support Files/Pods-JFTKeyboardManager/Pods-JFTKeyboardManager.release.xcconfig"; sourceTree = "<group>"; };
 		7090FC3D0C2BDAD30367DF16 /* libPods-JFTKeyboardManager.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JFTKeyboardManager.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B25A4CD886F5B9BE6FA52E5 /* Pods-JFTKeyboardManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JFTKeyboardManager.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JFTKeyboardManager/Pods-JFTKeyboardManager.debug.xcconfig"; sourceTree = "<group>"; };
@@ -151,8 +157,6 @@
 				30020C1B1FECF80A00565A68 /* JFTKeyboardModel.h */,
 				30020C191FECF80A00565A68 /* JFTKeyboardModel.m */,
 				30020C141FECF80800565A68 /* main.m */,
-				30020C151FECF80800565A68 /* TestContentTextView.h */,
-				30020C111FECF80700565A68 /* TestContentTextView.m */,
 				3002FCE51FF243D400E525CC /* TestMessageStyleToolBarViewController.h */,
 				3002FCE61FF243D400E525CC /* TestMessageStyleToolBarViewController.m */,
 				30020C121FECF80700565A68 /* ViewController.h */,
@@ -206,6 +210,12 @@
 		3002FCDE1FF22E8C00E525CC /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3002FCEF1FF3759400E525CC /* JFTInternalTextView.h */,
+				3002FCED1FF3759400E525CC /* JFTInternalTextView.m */,
+				3002FCF01FF3759400E525CC /* JFTTextView.h */,
+				3002FCEB1FF3759400E525CC /* JFTTextView.m */,
+				3002FCEE1FF3759400E525CC /* UITextViewDelegate+JVTNextGrowingTextViewTextViewDelegateExntention.h */,
+				3002FCEC1FF3759400E525CC /* UITextViewDelegate+JVTNextGrowingTextViewTextViewDelegateExntention.m */,
 				3002FCDF1FF22ED600E525CC /* JFTTestEmojiInputAccessoryView.h */,
 				3002FCE01FF22ED600E525CC /* JFTTestEmojiInputAccessoryView.m */,
 				3002FCE81FF2445800E525CC /* JFTTestMessageStyleToolBar.h */,
@@ -420,9 +430,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				30020C271FECF80B00565A68 /* JFTKeyboardManager.m in Sources */,
+				3002FCF31FF3759400E525CC /* JFTInternalTextView.m in Sources */,
 				3002FCDA1FF22A5400E525CC /* UITextView+JFTInputView.m in Sources */,
 				30020C241FECF80B00565A68 /* ViewController.m in Sources */,
+				3002FCF21FF3759400E525CC /* UITextViewDelegate+JVTNextGrowingTextViewTextViewDelegateExntention.m in Sources */,
 				3002FCDD1FF22A5400E525CC /* UIResponder+JFTFirstResponder.m in Sources */,
+				3002FCF11FF3759400E525CC /* JFTTextView.m in Sources */,
 				3002FCEA1FF2445800E525CC /* JFTTestMessageStyleToolBar.m in Sources */,
 				30020C231FECF80B00565A68 /* main.m in Sources */,
 				3002FCE11FF22ED600E525CC /* JFTTestEmojiInputAccessoryView.m in Sources */,
@@ -431,7 +444,6 @@
 				30020C1C1FECF80B00565A68 /* AppDelegate.m in Sources */,
 				3002FCDC1FF22A5400E525CC /* UIView+JFTKeyboardHierarchy.m in Sources */,
 				3002FCE71FF243D400E525CC /* TestMessageStyleToolBarViewController.m in Sources */,
-				30020C221FECF80B00565A68 /* TestContentTextView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

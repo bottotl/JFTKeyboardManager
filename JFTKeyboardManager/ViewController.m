@@ -8,14 +8,13 @@
 
 #import "ViewController.h"
 #import "JFTKeyboardManager.h"
-#import "TestContentTextView.h"
 #import "UIResponder+JFTFirstResponder.h"
 #import "UITextView+JFTInputView.h"
 
 static const CGFloat emojiKeyboardHeight = 216;
 @interface ViewController ()
 
-@property (weak, nonatomic) IBOutlet TestContentTextView *textView;
+@property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (nonatomic, assign) double stepperValue;
 
 @end

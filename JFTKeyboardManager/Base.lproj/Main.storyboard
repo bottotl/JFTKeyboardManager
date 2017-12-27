@@ -61,7 +61,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="735" y="117"/>
+            <point key="canvasLocation" x="650" y="116"/>
         </scene>
         <!--Test Message Style Tool Bar View Controller-->
         <scene sceneID="9Wd-fN-WKx">
@@ -70,7 +70,20 @@
                     <view key="view" contentMode="scaleToFill" id="GsJ-wV-zVC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jMj-si-YgC">
+                                <rect key="frame" x="109" y="95" width="157" height="30"/>
+                                <state key="normal" title="update textview height"/>
+                                <connections>
+                                    <action selector="updateHeight:" destination="QOG-Uv-KwF" eventType="touchUpInside" id="IcK-Qj-AAW"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="jMj-si-YgC" firstAttribute="top" secondItem="Gtp-Rx-bzf" secondAttribute="top" constant="31" id="HzS-7e-uKn"/>
+                            <constraint firstItem="jMj-si-YgC" firstAttribute="centerX" secondItem="Gtp-Rx-bzf" secondAttribute="centerX" id="Jjh-U1-fPK"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Gtp-Rx-bzf"/>
                     </view>
                     <navigationItem key="navigationItem" id="gh3-Je-neb">
@@ -104,7 +117,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T0h-wk-bSY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-670" y="118"/>
+            <point key="canvasLocation" x="-758" y="116"/>
         </scene>
     </scenes>
 </document>

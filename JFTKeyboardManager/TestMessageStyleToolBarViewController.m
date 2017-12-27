@@ -20,6 +20,12 @@
     self.jft_toolBar = [[JFTTestMessageStyleToolBar alloc] initWithFrame:CGRectMake(0, 200, CGRectGetWidth(self.view.frame), 200)];
     [self.view addSubview:self.jft_toolBar];
 }
+- (IBAction)updateHeight:(id)sender {
+    self.jft_toolBar.textView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.jft_toolBar.textView sizeToFit];
+    self.jft_toolBar.textView.scrollEnabled = NO;
+    [self.jft_toolBar.textView invalidateIntrinsicContentSize];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

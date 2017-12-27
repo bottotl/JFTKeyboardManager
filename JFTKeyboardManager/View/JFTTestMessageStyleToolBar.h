@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JFTTextView.h"
 
 @interface JFTTestMessageStyleToolBar : UIView
 
-@property (nonatomic, readonly) UITextView *textView;
+@property (nonatomic, readonly) JFTTextView *textView;
 @property (nonatomic, readonly) UIButton   *emojiButton;
 
 @end

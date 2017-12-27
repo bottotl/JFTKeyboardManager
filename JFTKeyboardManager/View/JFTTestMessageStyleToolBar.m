@@ -14,7 +14,7 @@
 static const CGSize emojiButtonSize = {50, 50};
 @interface JFTTestMessageStyleToolBar ()
 
-@property (nonatomic, strong) UITextView *textView;
+@property (nonatomic, strong) JFTTextView *textView;
 @property (nonatomic, strong) UIButton   *emojiButton;
 @property (nonatomic, assign) BOOL isEmojiKeyboard;
 
@@ -25,7 +25,11 @@ static const CGSize emojiButtonSize = {50, 50};
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor lightGrayColor];
-        _textView = [UITextView new];
+        _textView = [JFTTextView new];
+        _textView.backgroundColor = [UIColor grayColor];
+        _textView.font = [UIFont systemFontOfSize:18 weight:UIFontWeightRegular];
+        _textView.textContainerInset = UIEdgeInsetsMake(2.5, 0, 3, 0);
+        _textView.placeholderAttributedText = [self placeHolder];
         [self addSubview:_textView];
         
         _emojiButton = [UIButton new];
@@ -58,10 +62,12 @@ static const CGSize emojiButtonSize = {50, 50};
     self.isEmojiKeyboard = !self.isEmojiKeyboard;
     JFTKeyboardManager *manager = [JFTKeyboardManager sharedManager];
     if (self.isEmojiKeyboard) {
-        [self.textView jft_changeToDefaultInputView];
+        self.textView.inputView = nil;
+        [self.textView reloadInputViews];
         [self.emojiButton setTitle:@"system" forState:UIControlStateNormal];
     } else {
-        [self.textView jft_changeToCustomInputView:manager.customInputView];
+        self.textView.inputView = manager.customInputView;
+        [self.textView reloadInputViews];
         [self.emojiButton setTitle:@"emoji" forState:UIControlStateNormal];
     }
 }
@@ -78,5 +84,11 @@ static const CGSize emojiButtonSize = {50, 50};
 //    CGRect windowRect = [UIApplication sharedApplication].keyWindow.bounds;
 //    return CGRectGetWidth(windowRect) - 30 - emojiButtonSize.width;
 //}
-
+- (NSAttributedString *)placeHolder {
+    UIFont *systemFont = [UIFont systemFontOfSize:18.0f];
+    NSDictionary * fontAttributes = [[NSDictionary alloc] initWithObjectsAndKeys:systemFont, NSFontAttributeName, nil];
+    NSMutableAttributedString *libTitle = [[NSMutableAttributedString alloc] initWithString:@"写点什么吧" attributes:fontAttributes];
+    
+    return libTitle;
+}
 @end
