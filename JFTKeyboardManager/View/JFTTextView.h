@@ -29,6 +29,7 @@
 @property (nonatomic,assign) int maxHeight;
 @property (nonatomic,assign) int minHeight;
 
+- (void)setup;
 
 @property (nonatomic,weak) id<JFTTextViewDelegate> delegates;
 @property (nonatomic,strong, getter =_inputView) UIView *inputView;

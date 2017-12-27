@@ -41,7 +41,7 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        JFTInternalTextView *textView = [[JFTInternalTextView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+        JFTInternalTextView *textView = [[JFTInternalTextView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
         self.textView = textView;
         self.previousFrame = frame;
         _maxNumberOfLines = 0;

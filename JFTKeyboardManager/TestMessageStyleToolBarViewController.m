@@ -8,6 +8,7 @@
 
 #import "TestMessageStyleToolBarViewController.h"
 #import "JFTTestMessageStyleToolBar.h"
+#import "Masonry.h"
 
 @interface TestMessageStyleToolBarViewController ()
 @property (nonatomic, strong) JFTTestMessageStyleToolBar *jft_toolBar;
@@ -19,8 +20,16 @@
     [super viewDidLoad];
     self.jft_toolBar = [[JFTTestMessageStyleToolBar alloc] initWithFrame:CGRectMake(0, 200, CGRectGetWidth(self.view.frame), 200)];
     [self.view addSubview:self.jft_toolBar];
+    
+    [self.jft_toolBar mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.view.mas_centerY);
+        make.centerX.equalTo(self.view.mas_centerX);
+    }];
 }
+
 - (IBAction)updateHeight:(id)sender {
+    [self.jft_toolBar setNeedsUpdateConstraints];
+    [self.jft_toolBar updateConstraintsIfNeeded];
 }
 
 - (void)didReceiveMemoryWarning {
