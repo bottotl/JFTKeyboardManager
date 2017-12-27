@@ -68,7 +68,9 @@
 }
 
 - (void)textViewDidChange:(UITextView *)textView {
-    [self.delegates textViewDidChange:textView];
+    if ([self.delegates respondsToSelector:@selector(textViewDidChange:)]) {
+        [self.delegates textViewDidChange:textView];
+    }
     [self fitToScrollView];
 }
 
