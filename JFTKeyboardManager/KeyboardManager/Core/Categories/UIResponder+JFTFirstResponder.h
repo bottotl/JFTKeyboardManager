@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface UIResponder (JFTFirstResponder)
-+ (id)jft_currentFirstResponder;
++ (UIResponder *)jft_currentFirstResponder;
 @end

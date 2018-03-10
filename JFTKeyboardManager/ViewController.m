@@ -8,50 +8,24 @@
 
 #import "ViewController.h"
 #import "JFTKeyboardManager.h"
-#import "UIResponder+JFTFirstResponder.h"
-#import "UITextView+JFTInputView.h"
 #import "UIViewController+JFTTextInput.h"
+#import "UIResponder+JFTKeyboard.h"
 
-static const CGFloat emojiKeyboardHeight = 216;
 @interface ViewController ()
-
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (nonatomic, assign) double stepperValue;
 
 @end
 
 @implementation ViewController
-- (IBAction)stepperValueChanged:(UIStepper *)sender {
-    self.stepperValue = sender.value;
-//    NSLog(@"%@", [NSValue valueWithCGPoint:self.textView.inputAccessoryView.center]);
-//    NSLog(@"%@", [NSValue valueWithCGRect:self.textView.inputAccessoryView.frame]);
-//    UIView *inputAccessoryView = self.textView.inputAccessoryView;
-//    [self.textView reloadInputViews];
-    [[JFTKeyboardManager sharedManager] adjustFrameIfNeed];
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.jft_needMessageBar = YES;
-    // Do any additional setup after loading the view, typically from a nib.
-//    [JFTKeyboardManager sharedManager];
-    self.textView.jft_inputAccessoryViewStyle = JFTInputAccessoryViewStyleEmoji;
-//    ((UIScrollView *)self.view).contentInset = UIEdgeInsetsMake(1000, 0, 1000, 0);
+//    self.jft_needMessageBar = YES;
+    self.textView.jft_needInputAccessoryView = YES;
+    self.textView.jft_needAvoidKeyboardHide  = YES;
+    self.textView.jft_shouldResignOnTouchOutside = YES;
 }
-
-- (IBAction)buttonClick:(id)sender {
-    [[UIResponder jft_currentFirstResponder] resignFirstResponder];
-}
-
-- (IBAction)testFirstResponder:(id)sender {
-    [UIResponder jft_currentFirstResponder];
-//    if (self.textView.inputView) {
-//        [self.textView jft_changeToDefaultInputView];
-//    } else {
-//        [self.textView jft_changeToCustomInputView:[JFTKeyboardManager sharedManager].customInputView];
-//    }
-}
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

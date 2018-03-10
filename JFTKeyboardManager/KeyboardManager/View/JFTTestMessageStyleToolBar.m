@@ -9,7 +9,7 @@
 #import "JFTTestMessageStyleToolBar.h"
 #import "Masonry.h"
 #import "UITextView+JFTInputView.h"
-#import "JFTKeyboardManager.h"
+#import "JFTKeyboardManager+Private.h"
 
 static const CGFloat kToolBarDefaultHeight = 60.f;
 static const CGSize emojiButtonSize = {50, 50};

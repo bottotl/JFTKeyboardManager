@@ -8,6 +8,7 @@
 
 #import "UITextView+JFTInputView.h"
 #import <objc/runtime.h>
+#import "JFTKeyboardManager+Private.h"
 
 static void *JFTInputAccessoryViewStyleKey = &JFTInputAccessoryViewStyleKey;
 

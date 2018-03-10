@@ -12,7 +12,7 @@ static __weak id _jft_currentFirstResponder = nil;
 
 @implementation UIResponder (JFTFirstResponder)
 
-+ (id)jft_currentFirstResponder {
++ (UIResponder *)jft_currentFirstResponder {
     _jft_currentFirstResponder = nil;
     ///The default implementation dispatches the action method to the given target object or, if no target is specified, to the first responder.
     [[UIApplication sharedApplication] sendAction:@selector(jft_firstRepnderReceiveMessage) to:nil from:nil forEvent:nil];

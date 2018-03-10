@@ -9,6 +9,7 @@
 #import "UIViewController+JFTTextInput.h"
 #import <objc/runtime.h>
 #import "Masonry.h"
+#import "JFTKeyboardManager+Private.h"
 
 static void *JFTVCMessageBarKey = &JFTVCMessageBarKey;
 static void *JFTVCNeedMeeageBarKey = &JFTVCNeedMeeageBarKey;

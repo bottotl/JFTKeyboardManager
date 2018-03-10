@@ -1,26 +1,21 @@
 //
-//  JFTKeyboardManager.h
-//  JFTKeyBoardManager
+//  JFTKeyboardManager+Private.h
+//  JFTKeyboardManager
 //
-//  Created by syfll on 2017/12/22.
-//  Copyright © 2017年 syfll. All rights reserved.
+//  Created by syfll on 2018/3/10.
+//  Copyright © 2018年 syfll. All rights reserved.
 //
-
-#import <UIKit/UIKit.h>
+#import "JFTKeyboardManager.h"
 /// emoji views
 #import "JFTTestEmojiInputAccessoryView.h"
 #import "JFTTestEmojiInputView.h"
 
-@interface JFTKeyboardManager : NSObject
-
-+ (instancetype)sharedManager;
-
-@property(nonatomic, readonly) NSMutableSet<Class> *enabledClasses;
+@interface JFTKeyboardManager (Private)
 
 @property (nonatomic, strong) JFTTestEmojiInputView *customInputView;
 @property (nonatomic, readonly) JFTTestEmojiInputAccessoryView *customInputAccessoryView;
 
-- (void)adjustFrameIfNeed;
+- (void)adjustScrollViewOffsetIfNeed;
 
 - (void)registViewController:(UIViewController *)viewController;
 - (void)resignViewController:(UIViewController *)viewController;

@@ -15,15 +15,18 @@
 #import "UITextView+JFTInputView.h"
 #import "RACEXTScope.h"
 #import "UIViewController+JFTTextInput.h"
+#import "UIResponder+JFTKeyboard.h"
+#import "JFTKeyboardManager+Private.h"
 
 static JFTKeyboardManager * _sharadManager = nil;
 
 @interface JFTKeyboardManager()
+@property (nonatomic, strong) JFTTestEmojiInputView *customInputView;
 @property (nonatomic, strong) NSHashTable<UIViewController*> *messageBarViewController;
-@property (nonatomic, strong) NSMutableSet<Class> *enabledClasses;
 @property (nonatomic, readonly) UITextView *currentActiveTextView;
 @property (nonatomic, strong) JFTKeyboardModel *keyboardModel;///< save keyboard info
 @property (nonatomic, strong) JFTTestEmojiInputAccessoryView *customInputAccessoryView;
+//@property (nonatomic, strong) UITapGestureRecognizer *touchOutSideTapGesture;
 @end
 
 @implementation JFTKeyboardManager
@@ -81,20 +84,6 @@ static JFTKeyboardManager * _sharadManager = nil;
     [self.currentActiveTextView replaceRange:range withText:emoji];
 }
 
-- (NSMutableSet<Class> *)enabledClasses {
-    if (!_enabledClasses) {
-        NSMutableSet *classList = [NSMutableSet set];
-        if (objc_getClass("TestContentTextView")) {
-            [classList addObject:objc_getClass("TestContentTextView")];
-        }
-        if (objc_getClass("JFTInternalTextView")) {
-            [classList addObject:objc_getClass("JFTInternalTextView")];
-        }
-        _enabledClasses = classList;
-    }
-    return _enabledClasses;
-}
-
 - (void)registerAllNotifications {
     //  Registering for keyboard notification.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
@@ -112,7 +101,7 @@ static JFTKeyboardManager * _sharadManager = nil;
 - (void)keyboardFrameWillChange:(NSNotification *)aNotification {
     [self updateKeyboardModelWithKeyboardNotification:aNotification];
     [self updateMessageBar];
-    [self adjustFrameIfNeed];
+    [self adjustScrollViewOffsetIfNeed];
 }
 
 - (void)updateMessageBar {
@@ -127,7 +116,7 @@ static JFTKeyboardManager * _sharadManager = nil;
 
 - (void)keyboardWillShow:(NSNotification *)aNotification {
     [self updateKeyboardModelWithKeyboardNotification:aNotification];
-    [self adjustFrameIfNeed];
+    [self adjustScrollViewOffsetIfNeed];
 }
 
 - (void)keyboardDidShow:(NSNotification *)aNotification {
@@ -138,7 +127,7 @@ static JFTKeyboardManager * _sharadManager = nil;
     [self.customInputAccessoryView reset];
     self.currentActiveTextView.inputView = nil;
     [self updateKeyboardModelWithKeyboardNotification:aNotification];
-    [self adjustFrameIfNeed];
+    [self adjustScrollViewOffsetIfNeed];
 }
 
 - (void)keyboardDidHide:(NSNotification *)aNotification {
@@ -146,15 +135,15 @@ static JFTKeyboardManager * _sharadManager = nil;
 }
 
 - (void)textViewDidBeginEditing:(NSNotification *)aNotification {
-    [self adjustFrameIfNeed];
+    [self adjustScrollViewOffsetIfNeed];
 }
 
 - (void)textViewDidEndEditing:(NSNotification *)aNotification {
 }
 
-- (void)adjustFrameIfNeed {
+- (void)adjustScrollViewOffsetIfNeed {
     if (!self.currentActiveTextView) return;
-    
+    if (!self.currentActiveTextView.jft_needAvoidKeyboardHide) return;
     UITextView *textView = self.currentActiveTextView;
     
     UIScrollView *superScrollView = nil;
@@ -211,9 +200,9 @@ static JFTKeyboardManager * _sharadManager = nil;
 }
 
 - (UITextView *)currentActiveTextView {
-    NSObject *firstResponder = [UIResponder jft_currentFirstResponder];
+    UIResponder *firstResponder = [UIResponder jft_currentFirstResponder];
     if (!firstResponder) return nil;
-    if ([self.enabledClasses containsObject:firstResponder.class]) {
+    if ([firstResponder isKindOfClass:[UITextView class]]) {
         return (UITextView *)firstResponder;
     } else {
         return nil;
@@ -238,5 +227,23 @@ static JFTKeyboardManager * _sharadManager = nil;
 - (void)resignViewController:(UIViewController *)viewController {
     [self.messageBarViewController removeObject:viewController];
 }
+
+#pragma mark - Gesture delegate
+
+//
+//-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+//{
+//    //  Should not recognize gesture if the clicked view is either UIControl or UINavigationBar(<Back button etc...)    (Bug ID: #145)
+//    for (Class aClass in self.touchResignedGestureIgnoreClasses)
+//    {
+//        if ([[touch view] isKindOfClass:aClass])
+//        {
+//            return NO;
+//        }
+//    }
+//
+//    return YES;
+//}
+
 
 @end
