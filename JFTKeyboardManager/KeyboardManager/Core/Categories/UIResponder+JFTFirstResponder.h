@@ -10,4 +10,5 @@
 
 @interface UIResponder (JFTFirstResponder)
 + (UIResponder *)jft_currentFirstResponder;
+- (UIViewController *)nearestViewController;
 @end

@@ -20,13 +20,14 @@
 
 static JFTKeyboardManager * _sharadManager = nil;
 
-@interface JFTKeyboardManager()
+@interface JFTKeyboardManager()<UIGestureRecognizerDelegate>
 @property (nonatomic, strong) JFTTestEmojiInputView *customInputView;
 @property (nonatomic, strong) NSHashTable<UIViewController*> *messageBarViewController;
 @property (nonatomic, readonly) UITextView *currentActiveTextView;
 @property (nonatomic, strong) JFTKeyboardModel *keyboardModel;///< save keyboard info
 @property (nonatomic, strong) JFTTestEmojiInputAccessoryView *customInputAccessoryView;
-//@property (nonatomic, strong) UITapGestureRecognizer *touchOutSideTapGesture;
+@property (nonatomic, strong) UITapGestureRecognizer *touchOutSideTapGesture;
+@property (nonatomic, strong) UIPanGestureRecognizer *touchOutSidePanGesture;
 @end
 
 @implementation JFTKeyboardManager
@@ -73,7 +74,12 @@ static JFTKeyboardManager * _sharadManager = nil;
                 [self.currentActiveTextView jft_changeToCustomInputView:self.customInputView];
             }
         };
-        
+        _touchOutSideTapGesture = [UITapGestureRecognizer new];
+        [_touchOutSideTapGesture addTarget:self action:@selector(resignOnTouchOutside)];
+        _touchOutSideTapGesture.delegate = self;
+        _touchOutSidePanGesture = [UIPanGestureRecognizer new];
+        [_touchOutSidePanGesture addTarget:self action:@selector(resignOnTouchOutside)];
+        _touchOutSidePanGesture.delegate = self;
     }
     return self;
 }
@@ -117,6 +123,7 @@ static JFTKeyboardManager * _sharadManager = nil;
 - (void)keyboardWillShow:(NSNotification *)aNotification {
     [self updateKeyboardModelWithKeyboardNotification:aNotification];
     [self adjustScrollViewOffsetIfNeed];
+    [self attachGestures];
 }
 
 - (void)keyboardDidShow:(NSNotification *)aNotification {
@@ -128,6 +135,7 @@ static JFTKeyboardManager * _sharadManager = nil;
     self.currentActiveTextView.inputView = nil;
     [self updateKeyboardModelWithKeyboardNotification:aNotification];
     [self adjustScrollViewOffsetIfNeed];
+    [self removeGestures];
 }
 
 - (void)keyboardDidHide:(NSNotification *)aNotification {
@@ -228,7 +236,64 @@ static JFTKeyboardManager * _sharadManager = nil;
     [self.messageBarViewController removeObject:viewController];
 }
 
-#pragma mark - Gesture delegate
+#pragma mark - Gesture
+
+- (void)attachGestures {
+    if (!self.currentActiveTextView.jft_shouldResignOnTouchOutside) return;
+    UIViewController *nearestVC = [self currentActiveTextView].nearestViewController;
+    if (!nearestVC) return;
+    [nearestVC.view addGestureRecognizer:self.touchOutSideTapGesture];
+    [nearestVC.view addGestureRecognizer:self.touchOutSidePanGesture];
+}
+
+- (void)removeGestures {
+    if (!self.currentActiveTextView.jft_shouldResignOnTouchOutside) return;
+    [self.touchOutSideTapGesture.view removeGestureRecognizer:self.touchOutSideTapGesture];
+    [self.touchOutSidePanGesture.view removeGestureRecognizer:self.touchOutSidePanGesture];
+}
+
+//- (void)enableResignOnTouchOutsideGestures {
+//
+//}
+//
+//- (void)disableResignOnTouchOutsideGestures {
+//
+//}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    return [self gestureShouldRespond:gestureRecognizer touch:touch];
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    return [self gestureOwned:gestureRecognizer];
+}
+
+- (BOOL)gestureShouldRespond:(UIGestureRecognizer *)gestureRecognizer touch:(UITouch *)touch {
+    NSParameterAssert(self.currentActiveTextView);
+    
+    BOOL gestureOwned, rectOutSideViewOwned, rectOutSideKeyboard;
+    
+    gestureOwned = [self gestureOwned:gestureRecognizer];
+    
+    CGPoint point = [touch locationInView:[UIApplication sharedApplication].keyWindow];
+    NSLog(@"%@", [NSValue valueWithCGPoint:point]);
+    CGRect currentActiveTextViewRectInWindow = [self.currentActiveTextView convertRect:self.currentActiveTextView.bounds toView:[UIApplication sharedApplication].keyWindow];
+    rectOutSideViewOwned = !CGRectContainsPoint(currentActiveTextViewRectInWindow, point);
+    NSLog(@"【rectOutSideViewOwned:%@】", @(rectOutSideViewOwned));
+    
+    CGRect keyboardFrame = self.keyboardModel.frameEnd;
+    rectOutSideKeyboard = !CGRectContainsPoint(keyboardFrame, point);
+    NSLog(@"【rectOutSideKeyboard%@】", @(rectOutSideKeyboard));
+    return gestureOwned && rectOutSideViewOwned && rectOutSideKeyboard;
+}
+
+- (BOOL)gestureOwned:(UIGestureRecognizer *)gestureRecognizer {
+    return gestureRecognizer == self.touchOutSidePanGesture || gestureRecognizer == self.touchOutSideTapGesture;
+}
+
+- (void)resignOnTouchOutside {
+    [self.currentActiveTextView resignFirstResponder];
+}
 
 //
 //-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch

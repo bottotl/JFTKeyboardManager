@@ -28,4 +28,15 @@ static __weak id _jft_currentFirstResponder = nil;
     _jft_currentFirstResponder = self;
 }
 
+- (UIViewController *)nearestViewController {
+    UIResponder *responder = self;
+    while (![responder isKindOfClass:[UIViewController class]]) {
+        responder = responder.nextResponder;
+    }
+    if ([responder isKindOfClass:[UIViewController class]]) {
+        return (UIViewController *)responder;
+    }
+    return nil;
+}
+
 @end
