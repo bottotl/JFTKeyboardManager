@@ -10,6 +10,7 @@
 #import "JFTKeyboardManager.h"
 #import "UIResponder+JFTFirstResponder.h"
 #import "UITextView+JFTInputView.h"
+#import "UIViewController+JFTTextInput.h"
 
 static const CGFloat emojiKeyboardHeight = 216;
 @interface ViewController ()
@@ -31,6 +32,7 @@ static const CGFloat emojiKeyboardHeight = 216;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.jft_needMessageBar = YES;
     // Do any additional setup after loading the view, typically from a nib.
 //    [JFTKeyboardManager sharedManager];
     self.textView.jft_inputAccessoryViewStyle = JFTInputAccessoryViewStyleEmoji;
