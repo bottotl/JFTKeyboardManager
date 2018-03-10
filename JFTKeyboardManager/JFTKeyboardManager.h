@@ -19,5 +19,9 @@
 
 @property (nonatomic, strong) JFTTestEmojiInputView *customInputView;
 @property (nonatomic, readonly) JFTTestEmojiInputAccessoryView *customInputAccessoryView;
+
 - (void)adjustFrameIfNeed;
+
+- (void)registViewController:(UIViewController *)viewController;
+- (void)resignViewController:(UIViewController *)viewController;
 @end

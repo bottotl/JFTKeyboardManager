@@ -14,10 +14,12 @@
 #import "UIScrollView+JFTKeyboardManager.h"
 #import "UITextView+JFTInputView.h"
 #import "RACEXTScope.h"
+#import "UIViewController+JFTTextInput.h"
 
 static JFTKeyboardManager * _sharadManager = nil;
 
 @interface JFTKeyboardManager()
+@property (nonatomic, strong) NSHashTable<UIViewController*> *messageBarViewController;
 @property (nonatomic, strong) NSMutableSet<Class> *enabledClasses;
 @property (nonatomic, readonly) UITextView *currentActiveTextView;
 @property (nonatomic, strong) JFTKeyboardModel *keyboardModel;///< save keyboard info
@@ -38,6 +40,7 @@ static JFTKeyboardManager * _sharadManager = nil;
 
 - (instancetype)init {
     if (self = [super init]) {
+        _messageBarViewController = [NSHashTable weakObjectsHashTable];
         @weakify(self);
         _customInputView = [JFTTestEmojiInputView new];
         _customInputView.emojiItemDidClick = ^(NSString *emojiItem) {
@@ -105,7 +108,18 @@ static JFTKeyboardManager * _sharadManager = nil;
 
 - (void)keyboardFrameWillChange:(NSNotification *)aNotification {
     [self updateKeyboardModelWithKeyboardNotification:aNotification];
+    [self updateMessageBar];
     [self adjustFrameIfNeed];
+}
+
+- (void)updateMessageBar {
+    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
+    CGFloat bottomInsert = screenHeight - self.keyboardModel.frameEnd.origin.y;
+    [self.messageBarViewController.allObjects enumerateObjectsUsingBlock:^(UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [UIView animateWithDuration:self.keyboardModel.animationDuraiton delay:0 options:self.keyboardModel.animationCurve animations:^{
+            [obj jft_updateToolBarBottomInsert:bottomInsert];
+        } completion:nil];
+    }];
 }
 
 - (void)keyboardWillShow:(NSNotification *)aNotification {
@@ -212,6 +226,14 @@ static JFTKeyboardManager * _sharadManager = nil;
     self.keyboardModel.frameBegin = [[userInfo objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
     self.keyboardModel.frameEnd = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     self.keyboardModel.isLocal = [[userInfo objectForKey:UIKeyboardIsLocalUserInfoKey] boolValue];
+}
+
+- (void)registViewController:(UIViewController *)viewController {
+    [self.messageBarViewController addObject:viewController];
+}
+
+- (void)resignViewController:(UIViewController *)viewController {
+    [self.messageBarViewController removeObject:viewController];
 }
 
 @end

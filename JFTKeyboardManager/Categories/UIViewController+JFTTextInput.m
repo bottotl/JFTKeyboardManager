@@ -30,8 +30,10 @@ static CGFloat kMessageBarDefaultHeight = 200.f;
 - (void)setJft_needMessageBar:(BOOL)jft_needTextView {
     objc_setAssociatedObject(self, JFTVCNeedMeeageBarKey, @(jft_needTextView), OBJC_ASSOCIATION_RETAIN);
     if (jft_needTextView) {
+        [[JFTKeyboardManager sharedManager] registViewController:self];
         [self jft_showMessageBar];
     } else {
+        [[JFTKeyboardManager sharedManager] resignViewController:self];
         [self jft_hiddenMessageBar];
     }
 }
@@ -86,8 +88,8 @@ static CGFloat kMessageBarDefaultHeight = 200.f;
     return insert.floatValue;
 }
 
-- (void)setJft_textViewBottomInsert:(CGFloat)jft_textViewBottomInsert {
-    objc_setAssociatedObject(self, JFTVCMessageBarBottomInsertKey, @(jft_textViewBottomInsert), OBJC_ASSOCIATION_RETAIN);
+- (void)setJft_messageBarBottomInsert:(CGFloat)jft_messageBarBottomInsert {
+    objc_setAssociatedObject(self, JFTVCMessageBarBottomInsertKey, @(jft_messageBarBottomInsert), OBJC_ASSOCIATION_RETAIN);
 }
 
 #pragma Constraints
@@ -95,7 +97,7 @@ static CGFloat kMessageBarDefaultHeight = 200.f;
 - (void)jft_updateToolBarBottomInsert:(CGFloat)bottom {
     self.jft_messageBarBottomInsert = bottom;
     [self.jft_messageBar mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.view.mas_bottom).offset(bottom);
+        make.bottom.equalTo(self.view.mas_bottom).offset(-bottom);
     }];
 }
 

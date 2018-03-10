@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "JFTTestMessageStyleToolBar.h"
+#import "JFTKeyboardManager.h"
 
 @interface UIViewController (JFTMessageBar)
 
