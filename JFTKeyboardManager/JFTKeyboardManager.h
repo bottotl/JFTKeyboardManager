@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+/// emoji views
 #import "JFTTestEmojiInputAccessoryView.h"
+#import "JFTTestEmojiInputView.h"
 
 @interface JFTKeyboardManager : NSObject
 
@@ -15,7 +17,7 @@
 
 @property(nonatomic, readonly) NSMutableSet<Class> *enabledClasses;
 
-@property (nonatomic, strong) UIView *customInputView;
+@property (nonatomic, strong) JFTTestEmojiInputView *customInputView;
 @property (nonatomic, readonly) JFTTestEmojiInputAccessoryView *customInputAccessoryView;
 - (void)adjustFrameIfNeed;
 @end

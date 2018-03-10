@@ -13,7 +13,7 @@
 #import "UIResponder+JFTFirstResponder.h"
 #import "UIScrollView+JFTKeyboardManager.h"
 #import "UITextView+JFTInputView.h"
-#import "JFTTestEmojiInputAccessoryView.h"
+#import "RACEXTScope.h"
 
 static JFTKeyboardManager * _sharadManager = nil;
 
@@ -38,29 +38,44 @@ static JFTKeyboardManager * _sharadManager = nil;
 
 - (instancetype)init {
     if (self = [super init]) {
-        _customInputView = [UIView new];
+        @weakify(self);
+        _customInputView = [JFTTestEmojiInputView new];
+        _customInputView.emojiItemDidClick = ^(NSString *emojiItem) {
+            @strongify(self);
+            if (self.currentActiveTextView) {
+                [self addEmojiItem:emojiItem toTextView:self.currentActiveTextView];
+            }
+        };
         CGRect windowRect = [UIApplication sharedApplication].keyWindow.bounds;
         _customInputView.frame = CGRectMake(0, 0, CGRectGetWidth(windowRect), 210);
         _customInputView.backgroundColor = [UIColor blueColor];
         
         _customInputAccessoryView = [[JFTTestEmojiInputAccessoryView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(windowRect), 100)];
-        __weak typeof(self) WeakSelf = self;
+        
         _customInputAccessoryView.dismissKeyboardBlock = ^(void) {
-            if ([WeakSelf.currentActiveTextView isFirstResponder]) {
-                [WeakSelf.currentActiveTextView resignFirstResponder];
+            @strongify(self);
+            if ([self.currentActiveTextView isFirstResponder]) {
+                [self.currentActiveTextView resignFirstResponder];
             }
         };
         
         _customInputAccessoryView.keyboardStateChangeBlock = ^(JFTTestEmojiInputAccessoryKeyboardState state) {
+            @strongify(self);
             if (state == JFTTestEmojiInputAccessoryKeyboardStateSystem) {
-                [WeakSelf.currentActiveTextView jft_changeToDefaultInputView];
+                [self.currentActiveTextView jft_changeToDefaultInputView];
             } else {
-                [WeakSelf.currentActiveTextView jft_changeToCustomInputView:WeakSelf.customInputView];
+                [self.currentActiveTextView jft_changeToCustomInputView:self.customInputView];
             }
         };
         
     }
     return self;
+}
+
+- (void)addEmojiItem:(NSString *)emoji toTextView:(UITextView *)textView {
+    NSParameterAssert(textView || emoji);
+    UITextRange *range = textView.selectedTextRange;
+    [self.currentActiveTextView replaceRange:range withText:emoji];
 }
 
 - (NSMutableSet<Class> *)enabledClasses {
