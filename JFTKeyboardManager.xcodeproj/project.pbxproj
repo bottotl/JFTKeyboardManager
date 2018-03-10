@@ -11,7 +11,6 @@
 		30020BED1FECF7EA00565A68 /* JFTKeyboardManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 30020BEC1FECF7EA00565A68 /* JFTKeyboardManagerTests.m */; };
 		30020BF81FECF7EA00565A68 /* JFTKeyboardManagerUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 30020BF71FECF7EA00565A68 /* JFTKeyboardManagerUITests.m */; };
 		30020C1C1FECF80B00565A68 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 30020C051FECF80700565A68 /* AppDelegate.m */; };
-		30020C1F1FECF80B00565A68 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 30020C0B1FECF80700565A68 /* Info.plist */; };
 		30020C201FECF80B00565A68 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30020C0D1FECF80700565A68 /* LaunchScreen.storyboard */; };
 		30020C211FECF80B00565A68 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30020C0F1FECF80700565A68 /* Main.storyboard */; };
 		30020C231FECF80B00565A68 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 30020C141FECF80800565A68 /* main.m */; };
@@ -356,7 +355,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				30020C211FECF80B00565A68 /* Main.storyboard in Resources */,
-				30020C1F1FECF80B00565A68 /* Info.plist in Resources */,
 				30020C251FECF80B00565A68 /* Assets.xcassets in Resources */,
 				30020C201FECF80B00565A68 /* LaunchScreen.storyboard in Resources */,
 			);
@@ -616,6 +614,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2NCX2WCTH8;
 				INFOPLIST_FILE = JFTKeyboardManager/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = dianping.JFTKeyboardManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -631,6 +630,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2NCX2WCTH8;
 				INFOPLIST_FILE = JFTKeyboardManager/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = dianping.JFTKeyboardManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
