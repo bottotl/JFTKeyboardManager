@@ -5,6 +5,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "JFTInternalTextView.h"
 
 @protocol JFTTextViewDelegate <NSObject>
 @optional
@@ -23,7 +24,7 @@
 @end
 
 @interface JFTTextView : UIScrollView
-
+@property (nonatomic, readonly) JFTInternalTextView *textView;
 @property (nonatomic,assign) int maxNumberOfLines;
 @property (nonatomic,assign) int minNumberOfLines;
 @property (nonatomic,assign) int maxHeight;
