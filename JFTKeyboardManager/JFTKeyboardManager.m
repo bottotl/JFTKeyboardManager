@@ -87,6 +87,9 @@ static JFTKeyboardManager * _sharadManager = nil;
         if (objc_getClass("TestContentTextView")) {
             [classList addObject:objc_getClass("TestContentTextView")];
         }
+        if (objc_getClass("JFTInternalTextView")) {
+            [classList addObject:objc_getClass("JFTInternalTextView")];
+        }
         _enabledClasses = classList;
     }
     return _enabledClasses;
