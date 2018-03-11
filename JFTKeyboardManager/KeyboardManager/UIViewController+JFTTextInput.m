@@ -50,10 +50,9 @@ static CGFloat kMessageBarDefaultHeight = 200.f;
     }
     
     [msgBar mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(self.view.mas_width);
-        make.height.equalTo(@(kMessageBarDefaultHeight + safeAreaBottm));
         make.bottom.equalTo(self.view.mas_bottom);
         make.left.equalTo(@(0));
+        make.right.equalTo(self.view.mas_right);
     }];
 }
 

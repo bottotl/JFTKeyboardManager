@@ -13,7 +13,7 @@
         <!--自增长TextView-->
         <scene sceneID="Q46-ta-VDa">
             <objects>
-                <viewController id="NWV-AC-qLK" userLabel="自增长TextView" customClass="JFTViewControllerA" sceneMemberID="viewController">
+                <viewController title="自增长TextView" id="NWV-AC-qLK" userLabel="自增长TextView" customClass="JFTViewControllerA" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PR3-fe-Bnp">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

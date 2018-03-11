@@ -12,7 +12,10 @@
 #import "JFTKeyboardManager+Private.h"
 
 static const CGFloat kToolBarDefaultHeight = 60.f;
-static const CGSize emojiButtonSize = {50, 50};
+static const CGSize  kEmojiButtonSize = {50, 50};
+static const UIEdgeInsets kEmojiPadding = {0, 0, 10, 10};
+static const UIEdgeInsets kTextViewPadding = {10, 10, 10, 10};
+
 @interface JFTTestMessageStyleToolBar ()
 
 @property (nonatomic, strong) JFTTextView *textView;
@@ -28,19 +31,15 @@ static const CGSize emojiButtonSize = {50, 50};
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor lightGrayColor];
-        UIEdgeInsets emojiPadding = UIEdgeInsetsMake(0, 0, 10, 10);
-        UIEdgeInsets textViewPadding = UIEdgeInsetsMake(10, 10, 10, 10);
-//        CGFloat textViewHeight = 300;
-        CGFloat textViewHeight = kToolBarDefaultHeight - textViewPadding.top - textViewPadding.bottom;
-        CGFloat textViewWidth = CGRectGetWidth(frame) - textViewPadding.left - textViewPadding.right -
-        emojiButtonSize.width - emojiPadding.right;
-//        CGFloat textViewWidth = 100;
+        CGFloat textViewHeight = kToolBarDefaultHeight - kTextViewPadding.top - kTextViewPadding.bottom;
+//        CGFloat textViewWidth = CGRectGetWidth(frame) - kTextViewPadding.left - kTextViewPadding.right -
+//        kEmojiButtonSize.width - kEmojiPadding.right;
         
         _textView = [JFTTextView new];
         _textView.backgroundColor = [UIColor whiteColor];
         _textView.font = [UIFont systemFontOfSize:18 weight:UIFontWeightRegular];
         _textView.textContainerInset = UIEdgeInsetsMake(2.5, 0, 3, 0);
-//        _textView.placeholderAttributedText = [self placeHolder];
+        _textView.minTextHeight = textViewHeight;
         [self addSubview:_textView];
         
         _emojiButton = [UIButton new];
@@ -51,22 +50,24 @@ static const CGSize emojiButtonSize = {50, 50};
         [self addSubview:_emojiButton];
         
         [_emojiButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self.mas_bottom).with.offset(-emojiPadding.bottom);
-            make.right.equalTo(self.mas_right).with.offset(-emojiPadding.right);
-            make.width.equalTo(@(emojiButtonSize.width));
-            make.height.equalTo(@(emojiButtonSize.height));
+            make.bottom.equalTo(self.mas_bottom).with.offset(-kEmojiPadding.bottom);
+            make.right.equalTo(self.mas_right).with.offset(-kEmojiPadding.right);
+            make.width.equalTo(@(kEmojiButtonSize.width));
+            make.height.equalTo(@(kEmojiButtonSize.height));
         }];
         
-        _textView.frame = CGRectMake(0, 0, textViewWidth, textViewHeight);
         [_textView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.mas_top).with.offset(textViewPadding.top);
-            make.left.equalTo(self.mas_left).with.offset(textViewPadding.left);
-            make.bottom.equalTo(self.mas_bottom).with.offset(-textViewPadding.bottom);
-            make.right.equalTo(_emojiButton.mas_left).with.offset(-textViewPadding.right);
-            make.width.equalTo(@(textViewWidth));
+            make.left.equalTo(self.mas_left).with.offset(kTextViewPadding.left);
+            make.bottom.equalTo(self.mas_bottom).with.offset(-kTextViewPadding.bottom);
+            make.right.equalTo(_emojiButton.mas_left).with.offset(-kTextViewPadding.right);
             make.height.equalTo(@(textViewHeight));
+            make.top.equalTo(self.mas_top).with.offset(kTextViewPadding.top);
         }];
-        _textView.delegate = self;
+        @weakify(self);
+        [_textView.rac_heightChangeSignal subscribeNext:^(NSNumber *height) {
+            @strongify(self);
+            [self willChangeHeight:height.floatValue];
+        }];
         
         self.tapGesture = [UITapGestureRecognizer new];
         [self.tapGesture addTarget:self action:@selector(startEdit)];
@@ -82,9 +83,12 @@ static const CGSize emojiButtonSize = {50, 50};
 }
 
 - (void)willChangeHeight:(CGFloat)height {
+    CGFloat viewHeight = height;
+    viewHeight += (kTextViewPadding.bottom + kTextViewPadding.top);
     [self.textView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@(height));
+        make.height.equalTo(@(viewHeight));
     }];
+    
 }
 
 - (void)changeKeyboard {
