@@ -13,20 +13,7 @@
 
 @implementation JFTTextView
 
-- (instancetype)initWithCoder:(NSCoder *)aDecoder {
-    if (self = [super initWithCoder:aDecoder]) {
-//        [self setup];
-    }
-    return self;
-}
-
-- (instancetype)initWithFrame:(CGRect)frame {
-    if (self = [super initWithFrame:frame]) {
-//        [self setup];
-    }
-    return self;
-}
-
+/// UITextView 会在 init 的时候修改 ContentSize，这时候 maxTextHeight 如果没有来得及被初始化，会显示异常
 + (instancetype)alloc {
     JFTTextView *textView = [super alloc];
     [textView setup];
