@@ -9,10 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface UIResponder (JFTKeyboard)
-
-/**
- not done yet
- */
 @property (nonatomic, assign) BOOL jft_shouldResignOnTouchOutside;
 @property (nonatomic, assign) BOOL jft_needInputAccessoryView;
 @property (nonatomic, assign) BOOL jft_needAvoidKeyboardHide;
