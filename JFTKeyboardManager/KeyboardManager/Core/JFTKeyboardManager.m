@@ -276,14 +276,14 @@ static JFTKeyboardManager * _sharadManager = nil;
     gestureOwned = [self gestureOwned:gestureRecognizer];
     
     CGPoint point = [touch locationInView:[UIApplication sharedApplication].keyWindow];
-    NSLog(@"%@", [NSValue valueWithCGPoint:point]);
+//    NSLog(@"%@", [NSValue valueWithCGPoint:point]);
     CGRect currentActiveTextViewRectInWindow = [self.currentActiveTextView convertRect:self.currentActiveTextView.bounds toView:[UIApplication sharedApplication].keyWindow];
     rectOutSideViewOwned = !CGRectContainsPoint(currentActiveTextViewRectInWindow, point);
-    NSLog(@"【rectOutSideViewOwned:%@】", @(rectOutSideViewOwned));
+//    NSLog(@"【rectOutSideViewOwned:%@】", @(rectOutSideViewOwned));
     
     CGRect keyboardFrame = self.keyboardModel.frameEnd;
     rectOutSideKeyboard = !CGRectContainsPoint(keyboardFrame, point);
-    NSLog(@"【rectOutSideKeyboard%@】", @(rectOutSideKeyboard));
+//    NSLog(@"【rectOutSideKeyboard%@】", @(rectOutSideKeyboard));
     return gestureOwned && rectOutSideViewOwned && rectOutSideKeyboard;
 }
 
