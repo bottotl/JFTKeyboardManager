@@ -21,7 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    self.jft_needMessageBar = YES;
+    self.jft_needMessageBar = YES;
     self.textView.jft_needInputAccessoryView = YES;
     self.textView.jft_needAvoidKeyboardHide  = YES;
     self.textView.jft_shouldResignOnTouchOutside = YES;

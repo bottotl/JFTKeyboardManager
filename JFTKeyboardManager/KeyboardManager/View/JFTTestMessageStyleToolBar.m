@@ -13,7 +13,7 @@
 
 static const CGFloat kToolBarDefaultHeight = 60.f;
 static const CGSize emojiButtonSize = {50, 50};
-@interface JFTTestMessageStyleToolBar ()<JFTTextViewDelegate>
+@interface JFTTestMessageStyleToolBar ()
 
 @property (nonatomic, strong) JFTTextView *textView;
 @property (nonatomic, strong) UITapGestureRecognizer *tapGesture;
@@ -40,7 +40,7 @@ static const CGSize emojiButtonSize = {50, 50};
         _textView.backgroundColor = [UIColor whiteColor];
         _textView.font = [UIFont systemFontOfSize:18 weight:UIFontWeightRegular];
         _textView.textContainerInset = UIEdgeInsetsMake(2.5, 0, 3, 0);
-        _textView.placeholderAttributedText = [self placeHolder];
+//        _textView.placeholderAttributedText = [self placeHolder];
         [self addSubview:_textView];
         
         _emojiButton = [UIButton new];
@@ -58,7 +58,6 @@ static const CGSize emojiButtonSize = {50, 50};
         }];
         
         _textView.frame = CGRectMake(0, 0, textViewWidth, textViewHeight);
-        [_textView setup];
         [_textView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.mas_top).with.offset(textViewPadding.top);
             make.left.equalTo(self.mas_left).with.offset(textViewPadding.left);
@@ -67,7 +66,7 @@ static const CGSize emojiButtonSize = {50, 50};
             make.width.equalTo(@(textViewWidth));
             make.height.equalTo(@(textViewHeight));
         }];
-        _textView.delegates = self;
+        _textView.delegate = self;
         
         self.tapGesture = [UITapGestureRecognizer new];
         [self.tapGesture addTarget:self action:@selector(startEdit)];
@@ -77,8 +76,8 @@ static const CGSize emojiButtonSize = {50, 50};
 }
 
 - (void)startEdit {
-    if ([self.textView.textView canBecomeFirstResponder]) {
-        [self.textView.textView becomeFirstResponder];
+    if ([self.textView canBecomeFirstResponder]) {
+        [self.textView becomeFirstResponder];
     }
 }
 
@@ -92,27 +91,16 @@ static const CGSize emojiButtonSize = {50, 50};
     self.isEmojiKeyboard = !self.isEmojiKeyboard;
     JFTKeyboardManager *manager = [JFTKeyboardManager sharedManager];
     if (self.isEmojiKeyboard) {
-        self.textView.textViewInputView = nil;
+        self.textView.inputView = nil;
         [self.emojiButton setTitle:@"system" forState:UIControlStateNormal];
     } else {
-        self.textView.textViewInputView = manager.customInputView;
+        self.textView.inputView = manager.customInputView;
         [self.emojiButton setTitle:@"emoji" forState:UIControlStateNormal];
     }
-    [self.textView.textView reloadInputViews];
+    [self.textView reloadInputViews];
     [self startEdit];
 }
 
-//- (CGSize)sizeThatFits:(CGSize)size {
-//    CGRect textViewFrame = self.textView.frame;
-//    self.textView.frame = CGRectMake(15, 15, self.textViewWidth, CGRectGetHeight(textViewFrame));
-//    [self.textView sizeToFit];
-//    return CGSizeMake(size.width, self.textView.contentSize.height + 30);
-//}
-
-//- (CGFloat)textViewWidth {
-//    CGRect windowRect = [UIApplication sharedApplication].keyWindow.bounds;
-//    return CGRectGetWidth(windowRect) - 30 - emojiButtonSize.width;
-//}
 - (NSAttributedString *)placeHolder {
     UIFont *systemFont = [UIFont systemFontOfSize:18.0f];
     NSDictionary * fontAttributes = [[NSDictionary alloc] initWithObjectsAndKeys:systemFont, NSFontAttributeName, nil];
