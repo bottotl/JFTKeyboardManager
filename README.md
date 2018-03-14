@@ -44,7 +44,6 @@ self.textView.jft_shouldResignOnTouchOutside = YES;
 
 ### 4. 给页面添加仿微信的输入框
 
-**导入头文件 UIViewController+JFTTextInput.h**
 
 **设置 jft_needMessageBar 属性**
 
