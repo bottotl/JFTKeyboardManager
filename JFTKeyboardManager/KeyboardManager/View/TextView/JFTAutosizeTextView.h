@@ -8,8 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import <ReactiveCocoa/ReactiveCocoa.h>
+/**
+ ！不要修改它的 delegate
+ */
+@interface JFTAutosizeTextView : UITextView
 
-@interface JFTTextView : UITextView
+@property (nonatomic, copy) void(^beginEdit)(JFTAutosizeTextView *textView);
+@property (nonatomic, copy) void(^endEdit)(JFTAutosizeTextView *textView);
+@property (nonatomic, copy) void(^returnClick)(NSString *text);
+
+@property (nonatomic, strong) NSString *placeHolder;
+@property (nonatomic, strong) UIColor *placeholderColor;
 
 @property (nonatomic, assign) CGFloat minTextHeight;///< defaule is 0
 @property (nonatomic, assign) CGFloat maxTextHeight;///< defaule is CGFLOAT_MAX

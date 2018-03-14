@@ -7,13 +7,10 @@
 //
 
 #import "ViewController.h"
-#import "JFTKeyboardManager.h"
-#import "UIViewController+JFTTextInput.h"
-#import "UIResponder+JFTKeyboard.h"
+#import "JFTKeyboard.h"
 
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UITextView *textView;
-@property (nonatomic, assign) double stepperValue;
 
 @end
 
@@ -21,16 +18,21 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.jft_needMessageBar = YES;
+//    self.jft_needMessageBar = YES;
     self.textView.jft_needInputAccessoryView = YES;
     self.textView.jft_needAvoidKeyboardHide  = YES;
     self.textView.jft_shouldResignOnTouchOutside = YES;
-    self.jft_messageBar.textView.jft_shouldResignOnTouchOutside = YES;
+//    self.jft_messageBar.textView.jft_shouldResignOnTouchOutside = YES;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)triggerClick:(UIButton *)sender {
+    [sender jft_becomeTextInputTrigger];
+    [self.textView becomeFirstResponder];
 }
 
 @end

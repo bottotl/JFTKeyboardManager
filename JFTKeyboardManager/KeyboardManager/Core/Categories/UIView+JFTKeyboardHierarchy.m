@@ -38,4 +38,18 @@
     return nil;
 }
 
+- (NSArray *)subviewsOfClassType:(Class)classType {
+    NSMutableArray *array = @[].mutableCopy;
+    [self.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSArray *views = [obj subviewsOfClassType:classType];
+        if (views) {
+            [array addObjectsFromArray:views];
+        }
+    }];
+    if ([self isKindOfClass:classType]) {
+        [array addObject:self];
+    }
+    return array;
+}
+
 @end

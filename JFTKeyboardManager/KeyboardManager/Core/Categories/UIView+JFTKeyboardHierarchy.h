@@ -11,5 +11,5 @@
 @interface UIView (JFTKeyboardHierarchy)
 
 - (nullable UIView *)superviewOfClassType:(nonnull Class)classType;
-
+- (nullable NSArray *)subviewsOfClassType:(nonnull Class)classType;
 @end

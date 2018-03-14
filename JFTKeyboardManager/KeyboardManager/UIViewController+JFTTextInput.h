@@ -7,8 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "JFTTestMessageStyleToolBar.h"
+#import "JFTMessageStyleToolBar.h"
 #import "JFTKeyboardManager.h"
+
+typedef enum : NSUInteger {
+    JFTMessageBarStyleAlwaysShow,
+    JFTMessageBarStyleHiddenWhenNoNeed
+} JFTMessageBarStyle;
 
 @interface UIViewController (JFTMessageBar)
 
@@ -18,10 +23,11 @@
  */
 @property (nonatomic, assign)   BOOL    jft_needMessageBar;
 
-@property (nonatomic, readonly) CGFloat jft_messageBarBottomInsert;
+@property (nonatomic, assign)   JFTMessageBarStyle      jft_messageBarStyle;
+@property (nonatomic, readonly) JFTMessageStyleToolBar *jft_messageBar;
 
-@property (nonatomic, readonly) JFTTestMessageStyleToolBar *jft_messageBar;
-
-- (void)jft_updateToolBarBottomInsert:(CGFloat)bottom;
+#pragma mark - Private
+@property (nonatomic, readonly) CGFloat jft_messageBarBottomInset;
+- (void)jft_updateToolBarBottomInset:(CGFloat)bottom;
 
 @end

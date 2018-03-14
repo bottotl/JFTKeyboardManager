@@ -10,34 +10,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--自增长TextView-->
-        <scene sceneID="Q46-ta-VDa">
-            <objects>
-                <viewController title="自增长TextView" id="NWV-AC-qLK" userLabel="自增长TextView" customClass="JFTViewControllerA" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="PR3-fe-Bnp">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="SqG-uo-Wv7" customClass="JFTTextView">
-                                <rect key="frame" x="67" y="224" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="U9z-AX-fp0"/>
-                    </view>
-                    <connections>
-                        <outlet property="textView" destination="SqG-uo-Wv7" id="Iua-bH-1R0"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Oab-eP-sgk" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1358" y="116"/>
-        </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -59,10 +31,6 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P2i-oO-Q24">
-                                        <rect key="frame" x="31" y="44" width="123" height="30"/>
-                                        <state key="normal" title="test first respondr"/>
-                                    </button>
                                     <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" minimumValue="-200" maximumValue="200" stepValue="50" translatesAutoresizingMaskIntoConstraints="NO" id="ANX-GB-fD7">
                                         <rect key="frame" x="140" y="409" width="94" height="29"/>
                                     </stepper>
@@ -70,7 +38,14 @@
                                         <rect key="frame" x="256" y="128" width="46" height="30"/>
                                         <state key="normal" title="Button"/>
                                         <connections>
-                                            <segue destination="NWV-AC-qLK" kind="show" id="tts-oG-tgS"/>
+                                            <segue destination="5yW-ab-EfW" kind="show" id="tBH-4k-frw"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P2i-oO-Q24">
+                                        <rect key="frame" x="31" y="420" width="123" height="30"/>
+                                        <state key="normal" title="test first respondr"/>
+                                        <connections>
+                                            <action selector="triggerClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2ZO-vT-3GK"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -81,9 +56,9 @@
                                     <constraint firstAttribute="trailing" secondItem="5Go-nx-Dhl" secondAttribute="trailing" constant="32" id="QyJ-zs-lJj"/>
                                     <constraint firstAttribute="bottom" secondItem="ANX-GB-fD7" secondAttribute="bottom" constant="500" id="VMt-mr-YSF"/>
                                     <constraint firstItem="tCn-7z-FoD" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Wgc-G4-80a" secondAttribute="leading" id="Y5W-G2-yfg"/>
+                                    <constraint firstItem="P2i-oO-Q24" firstAttribute="top" secondItem="5Go-nx-Dhl" secondAttribute="bottom" constant="19" id="dEC-Of-nKa"/>
                                     <constraint firstItem="5Go-nx-Dhl" firstAttribute="centerX" secondItem="Wgc-G4-80a" secondAttribute="centerX" id="g85-LD-Kgg"/>
                                     <constraint firstItem="ANX-GB-fD7" firstAttribute="top" secondItem="5Go-nx-Dhl" secondAttribute="bottom" constant="8" symbolic="YES" id="l46-X2-EV1"/>
-                                    <constraint firstItem="P2i-oO-Q24" firstAttribute="top" secondItem="Wgc-G4-80a" secondAttribute="top" constant="44" id="l8w-D3-mMh"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="P2i-oO-Q24" secondAttribute="trailing" constant="20" symbolic="YES" id="qEk-67-qbY"/>
                                     <constraint firstAttribute="trailing" secondItem="tCn-7z-FoD" secondAttribute="trailing" constant="73" id="rAf-pJ-tuj"/>
                                     <constraint firstItem="5Go-nx-Dhl" firstAttribute="centerX" secondItem="ANX-GB-fD7" secondAttribute="centerX" id="rGV-2A-iqT"/>
@@ -110,45 +85,20 @@
             </objects>
             <point key="canvasLocation" x="648.79999999999995" y="115.59220389805098"/>
         </scene>
-        <!--Test Message Style Tool Bar View Controller-->
-        <scene sceneID="9Wd-fN-WKx">
+        <!--View ControllerA-->
+        <scene sceneID="iJ4-qu-hbW">
             <objects>
-                <viewController id="QOG-Uv-KwF" customClass="TestMessageStyleToolBarViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="GsJ-wV-zVC">
+                <viewController id="5yW-ab-EfW" customClass="JFTViewControllerA" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hMV-qe-KZI">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jMj-si-YgC">
-                                <rect key="frame" x="109" y="51" width="157" height="30"/>
-                                <state key="normal" title="update textview height"/>
-                                <connections>
-                                    <action selector="updateHeight:" destination="QOG-Uv-KwF" eventType="touchUpInside" id="IcK-Qj-AAW"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="jMj-si-YgC" firstAttribute="top" secondItem="Gtp-Rx-bzf" secondAttribute="top" constant="31" id="HzS-7e-uKn"/>
-                            <constraint firstItem="jMj-si-YgC" firstAttribute="centerX" secondItem="Gtp-Rx-bzf" secondAttribute="centerX" id="Jjh-U1-fPK"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="Gtp-Rx-bzf"/>
+                        <viewLayoutGuide key="safeArea" id="U7O-F1-3d1"/>
                     </view>
-                    <navigationItem key="navigationItem" id="gh3-Je-neb">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="esU-w2-47N">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Lzd-D7-ihJ">
-                                <rect key="frame" x="313" y="7" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="qOV-r7-QJv"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
-                    </navigationItem>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Epw-Bv-iNZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gKf-8W-Pjd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-89" y="869"/>
+            <point key="canvasLocation" x="1319" y="116"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="UHg-3i-Mqr">
@@ -167,7 +117,4 @@
             <point key="canvasLocation" x="-90" y="93"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="wDx-dS-Z7W"/>
-    </inferredMetricsTieBreakers>
 </document>

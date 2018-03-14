@@ -17,17 +17,19 @@
 #import "UIViewController+JFTTextInput.h"
 #import "UIResponder+JFTKeyboard.h"
 #import "JFTKeyboardManager+Private.h"
+#import "UIView+JFTTextInputTrigger.h"
 
 static JFTKeyboardManager * _sharadManager = nil;
 
 @interface JFTKeyboardManager()<UIGestureRecognizerDelegate>
-@property (nonatomic, strong) JFTTestEmojiInputView *customInputView;
 @property (nonatomic, strong) NSHashTable<UIViewController*> *messageBarViewController;
 @property (nonatomic, readonly) UITextView *currentActiveTextView;
 @property (nonatomic, strong) JFTKeyboardModel *keyboardModel;///< save keyboard info
 @property (nonatomic, strong) JFTTestEmojiInputAccessoryView *customInputAccessoryView;
 @property (nonatomic, strong) UITapGestureRecognizer *touchOutSideTapGesture;
 @property (nonatomic, strong) UIPanGestureRecognizer *touchOutSidePanGesture;
+
+@property (nonatomic, weak) UIView *textInputTrigger;
 @end
 
 @implementation JFTKeyboardManager
@@ -114,8 +116,9 @@ static JFTKeyboardManager * _sharadManager = nil;
     CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
     CGFloat bottomInsert = screenHeight - self.keyboardModel.frameEnd.origin.y;
     [self.messageBarViewController.allObjects enumerateObjectsUsingBlock:^(UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [UIView animateWithDuration:self.keyboardModel.animationDuraiton delay:0 options:self.keyboardModel.animationCurve animations:^{
-            [obj jft_updateToolBarBottomInsert:bottomInsert];
+        [UIView animateKeyframesWithDuration:self.keyboardModel.animationDuraiton delay:0 options:self.keyboardModel.animationCurve animations:^{
+            [obj jft_updateToolBarBottomInset:bottomInsert];
+            [obj.view layoutIfNeeded];
         } completion:nil];
     }];
 }
@@ -144,18 +147,33 @@ static JFTKeyboardManager * _sharadManager = nil;
 
 - (void)textViewDidBeginEditing:(NSNotification *)aNotification {
     [self adjustScrollViewOffsetIfNeed];
+    [self resignTextInputTrigger];
 }
 
 - (void)textViewDidEndEditing:(NSNotification *)aNotification {
 }
 
 - (void)adjustScrollViewOffsetIfNeed {
-    if (!self.currentActiveTextView) return;
-    if (!self.currentActiveTextView.jft_needAvoidKeyboardHide) return;
-    UITextView *textView = self.currentActiveTextView;
+    /// 正常有两种情况
+    /// 1.scroll view 中的 TextView 成为 firstResponder 触发的键盘
+    /// 2.scroll view 中的某个按钮（或者其他什么）让某个 textView （比如 message bar 中的 textView）成为 firstResponder
+    /// 第二种拥有更高的优先级
+    
+    /// 还有特殊情况的列子：某个按钮成为 trigger 以后 push 到了另外一个页面，另外的页面主动把 TextView 设为 firstResponder，这种做为一个特例排除
+    UIView *textInputTrigger = ({
+        UIView *trigger;
+        if (self.textInputTrigger && self.textInputTrigger.window) {
+            trigger = self.textInputTrigger;
+        } else {
+            trigger = self.currentActiveTextView;
+        }
+        trigger;
+    });
+    
+    if (!textInputTrigger.jft_needAvoidKeyboardHide) return;
     
     UIScrollView *superScrollView = nil;
-    UIScrollView *superView = (UIScrollView*)[textView superviewOfClassType:[UIScrollView class]];
+    UIScrollView *superView = (UIScrollView*)[textInputTrigger superviewOfClassType:[UIScrollView class]];
     //Getting UIScrollView whose scrolling is enabled.
     while (superView) {
         if (superView.isScrollEnabled) {
@@ -168,38 +186,47 @@ static JFTKeyboardManager * _sharadManager = nil;
     // adjust frame
     if (!superView) return;
     
-    UIWindow *keyWindow = textView.window;
-    CGRect textViewRect = [textView convertRect:textView.bounds
-                                         toView:keyWindow];
-    if (![self isKeyboardCoverTextView:self.keyboardModel textViewRectInWindow:textViewRect]) {
-        /// keyboard does not cover textview nothing need to do, direct return
-        return;
-    }
+    UIWindow *keyWindow = textInputTrigger.window;
     
-    CGFloat offsetY = 0;
-    {
+    CGRect triggerRectInWindow = ({
+        CGRect triggerRect = textInputTrigger.bounds;
+        CGFloat customBottomInsert = textInputTrigger.jft_bottomOffset;
+        CGRect customedTriggerRect = CGRectMake(triggerRect.origin.x, triggerRect.origin.y, triggerRect.size.width, triggerRect.size.height + customBottomInsert);
+        [textInputTrigger convertRect:customedTriggerRect toView:keyWindow];
+    });
+    
+    
+    CGRect internalKeyboardFrame = ({
         CGRect keyboardFrame = self.keyboardModel.frameEnd;
-        CGRect intersectRect = CGRectIntersection(textViewRect, keyboardFrame);
-        offsetY = intersectRect.size.height;
-    }
+        UIViewController *triggerNearestVC = textInputTrigger.nearestViewController;
+        /// 计算键盘的高度的时候不能直接拿到 MessageBar convertRect to window
+        /// 因为这时候还
+        CGFloat msgBarHeight = 0;
+        if (triggerNearestVC.jft_needMessageBar) {
+            msgBarHeight = triggerNearestVC.jft_messageBar.currentHeight;
+            msgBarHeight -= [JFTMessageStyleToolBar jft_homeIndicatorHeight];
+        }
+        CGRectMake(keyboardFrame.origin.x, keyboardFrame.origin.y - msgBarHeight, keyboardFrame.size.width, keyboardFrame.size.height + msgBarHeight);
+    });
     
-    CGFloat maxOffset = superView.contentOffset.y + superView.bounds.size.height + superView.contentInset.bottom + superView.contentInset.top;
+//    BOOL keyboardCoverdTrigger = [self isKeyboardCoverTextView:internalKeyboardFrame rectInWindow:triggerRectInWindow];
+//    if (!keyboardCoverdTrigger) return;
+    
+    CGFloat offsetY = ({/// offset need to add to scroll view
+        CGFloat triggerMaxY = CGRectGetMaxY(triggerRectInWindow);
+        CGFloat keyboardMinY = CGRectGetMinY(internalKeyboardFrame);
+        triggerMaxY - keyboardMinY;
+    });
     
     CGFloat targetContentOffsetY = superView.contentOffset.y + offsetY;
-    if (maxOffset < targetContentOffsetY) {
-        superView.jft_originContentInsetValue = [NSValue valueWithUIEdgeInsets:superView.contentInset];
-        CGFloat offset = targetContentOffsetY - maxOffset;
-        UIEdgeInsets newContentInset;
-        newContentInset = superView.contentInset;
-        newContentInset.bottom += offset;
-    }
+    /// 没空间向下移了
+    if (targetContentOffsetY<0) return;
     
     superView.contentOffset = CGPointMake(superView.contentOffset.x, targetContentOffsetY);
 //    NSLog(@"isKeyboardCoverTextView === %@", @());
 }
 
-- (BOOL)isKeyboardCoverTextView:(JFTKeyboardModel *)keyboardModel textViewRectInWindow:(CGRect)rect {
-    CGRect keyboardFrame = keyboardModel.frameEnd;
+- (BOOL)isKeyboardCoverTextView:(CGRect)keyboardFrame rectInWindow:(CGRect)rect {
     CGRect intersectRect = CGRectIntersection(rect, keyboardFrame);
     if (CGRectIsNull(intersectRect)) {
         return NO;
@@ -228,7 +255,7 @@ static JFTKeyboardManager * _sharadManager = nil;
     self.keyboardModel.isLocal = [[userInfo objectForKey:UIKeyboardIsLocalUserInfoKey] boolValue];
 }
 
-- (void)registViewController:(UIViewController *)viewController {
+- (void)registerViewController:(UIViewController *)viewController {
     [self.messageBarViewController addObject:viewController];
 }
 
@@ -251,14 +278,6 @@ static JFTKeyboardManager * _sharadManager = nil;
     [self.touchOutSideTapGesture.view removeGestureRecognizer:self.touchOutSideTapGesture];
     [self.touchOutSidePanGesture.view removeGestureRecognizer:self.touchOutSidePanGesture];
 }
-
-//- (void)enableResignOnTouchOutsideGestures {
-//
-//}
-//
-//- (void)disableResignOnTouchOutsideGestures {
-//
-//}
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
     return [self gestureShouldRespond:gestureRecognizer touch:touch];
@@ -292,23 +311,48 @@ static JFTKeyboardManager * _sharadManager = nil;
 }
 
 - (void)resignOnTouchOutside {
+    [self recoverScrollViewBeforeResignFirstResponder:self.currentActiveTextView];
     [self.currentActiveTextView resignFirstResponder];
 }
 
-//
-//-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
-//{
-//    //  Should not recognize gesture if the clicked view is either UIControl or UINavigationBar(<Back button etc...)    (Bug ID: #145)
-//    for (Class aClass in self.touchResignedGestureIgnoreClasses)
-//    {
-//        if ([[touch view] isKindOfClass:aClass])
-//        {
-//            return NO;
-//        }
-//    }
-//
-//    return YES;
-//}
+/**
+ 为了解决 adjustScrollViewOffsetIfNeed 过程中设置过多 contentOffset 的问题
+ 但是思路似乎不通用，不知道会不会有什么坑
 
+ @param currentActiveTextView 当前激活的 TextView
+ */
+- (void)recoverScrollViewBeforeResignFirstResponder:(UIView *)currentActiveTextView {
+    // find scroll view
+    UIView *rootView = currentActiveTextView.nearestViewController.view;
+    NSArray <UIScrollView *>*scrollViews = [rootView subviewsOfClassType:[UIScrollView class]];
+    
+    [scrollViews enumerateObjectsUsingBlock:^(UIScrollView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        CGFloat minContentOffset = -obj.contentInset.top;
+        
+        CGFloat maxContentOffset = 0;
+        CGFloat customContentHeight = obj.contentSize.height + obj.contentInset.top + obj.contentInset.bottom;
+        if (customContentHeight > obj.bounds.size.height) {
+            maxContentOffset = customContentHeight - obj.bounds.size.height - obj.contentInset.top;
+        } else {
+            maxContentOffset = minContentOffset;
+        }
+        
+        if (obj.contentOffset.y > maxContentOffset) {
+            obj.contentOffset = CGPointMake(obj.contentOffset.x, maxContentOffset);
+        }
+    }];
+    
+}
+
+#pragma mark - TextInput trigger
+
+- (void)registerTextInputTrigger:(UIView *)view {
+    self.textInputTrigger = view;
+}
+
+- (void)resignTextInputTrigger {
+    self.textInputTrigger = nil;
+}
 
 @end

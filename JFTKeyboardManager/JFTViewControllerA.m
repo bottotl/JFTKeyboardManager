@@ -7,20 +7,46 @@
 //
 
 #import "JFTViewControllerA.h"
-#import "UIResponder+JFTKeyboard.h"
+#import "JFTKeyboard.h"
+#import "JFTTestTriggerCell.h"
 
-@interface JFTViewControllerA ()
-@property (weak, nonatomic) IBOutlet UITextView *textView;
-
+@interface JFTViewControllerA ()<UITableViewDataSource, UITableViewDelegate>
+@property (nonatomic, strong) UITableView *tableview;
 @end
 
 @implementation JFTViewControllerA
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.textView.jft_needInputAccessoryView = YES;
-    self.textView.jft_needAvoidKeyboardHide  = YES;
-    self.textView.jft_shouldResignOnTouchOutside = YES;
+    self.tableview = [[UITableView alloc] initWithFrame:self.view.bounds];
+    [self.tableview registerClass:[JFTTestTriggerCell class] forCellReuseIdentifier:@"cell"];
+    self.tableview.dataSource = self;
+    self.tableview.delegate = self;
+    [self.view addSubview:self.tableview];
+    
+    self.jft_needMessageBar = YES;
+    self.jft_messageBarStyle = JFTMessageBarStyleHiddenWhenNoNeed;
+    self.jft_messageBar.textView.jft_shouldResignOnTouchOutside = YES;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    JFTTestTriggerCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    [cell.triggerA addTarget:self action:@selector(triggerTestA:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.triggerB addTarget:self action:@selector(triggerTestA:) forControlEvents:UIControlEventTouchUpInside];
+    return cell;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 100;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 150;
+}
+
+- (void)triggerTestA:(UIButton *)sender {
+    [sender jft_becomeTextInputTrigger];
+    [self.jft_messageBar becomeFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning {
