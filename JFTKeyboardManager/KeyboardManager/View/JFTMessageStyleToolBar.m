@@ -206,7 +206,9 @@ static const UIEdgeInsets kTextViewPadding = {15, 10, 10, 15};
     /// 如果涉及到不同 textInputTrigger 切换的时候 manager 中的手势会先导致键盘落下并且弹起
     /// 但是一定情况下手势并不会起作用（原因不明）
     /// 所以这里暂时手动调用，保证切换能够正常进行
-    [[JFTKeyboardManager sharedManager] adjustScrollViewOffsetIfNeed];
+    [UIView animateWithDuration:0.25 animations:^{
+        [[JFTKeyboardManager sharedManager] adjustScrollViewOffsetIfNeed];
+    }];
     return isFirstResponder;
 }
 
