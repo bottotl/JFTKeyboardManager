@@ -5,7 +5,7 @@ keyboard manager for iOS
 
 IQKeyboardManager 不太能符合现在业务的要求，出于定制化的需求，做了一个简单的 demo，目前的 UI 很简陋。
 
-**2018/3/14新增UIView 添加 textInputTrigger属性，快速集成键盘谈起时滚动到指定 View 的能力**
+
 
 ## Usage
 
@@ -14,10 +14,9 @@ IQKeyboardManager 不太能符合现在业务的要求，出于定制化的需�
 3. 任意 TextView 添加键盘隐藏和显示 emoji 键盘的 ToolBar
 
 ## How to use
+**所有category 都在 JFTKeyboard.h 中声明**
 
 ### 1. 给输入框添加 ToolBar——包含 `Emoji 键盘`和 `隐藏键盘` 
-
-**导入头文件 UIResponder+JFTKeyboard.h**
 
 **给TextView设置属性**
 
@@ -25,11 +24,7 @@ IQKeyboardManager 不太能符合现在业务的要求，出于定制化的需�
 self.textView.jft_needInputAccessoryView = YES;
 ```
 
-
-
 ### 2. 防止输入框被遮挡
-
-**导入头文件 UIResponder+JFTKeyboard.h**
 
 **给TextView设置属性**
 
@@ -37,18 +32,14 @@ self.textView.jft_needInputAccessoryView = YES;
 self.textView.jft_needAvoidKeyboardHide  = YES;
 ```
 
-
-
 ### 3. 点击非输入框区域自动隐藏键盘
 
-**导入头文件 UIResponder+JFTKeyboard.h**
 
 **给TextView设置属性**
 
 ```
 self.textView.jft_shouldResignOnTouchOutside = YES;
 ```
-
 
 
 ### 4. 给页面添加仿微信的输入框
@@ -67,3 +58,13 @@ self.jft_needMessageBar = YES;
 self.jft_messageBar.textView.jft_shouldResignOnTouchOutside = YES;
 ```
 
+如果希望点击一个按钮，弹起 messageBar 并且按钮的下边缘（或其他位置）对齐 messageBar 的顶部
+
+```
+- (void)triggerTestA:(UIButton *)sender {
+    [sender jft_becomeTextInputTrigger];
+    //务必确认在键盘弹起之前调用按钮的 jft_becomeTextInputTrigger
+    [self.jft_messageBar becomeFirstResponder];
+}
+
+```
