@@ -5,6 +5,8 @@ keyboard manager for iOS
 
 IQKeyboardManager 不太能符合现在业务的要求，出于定制化的需求，做了一个简单的 demo，目前的 UI 很简陋。
 
+**2018/3/14新增UIView 添加 textInputTrigger属性，快速集成键盘谈起时滚动到指定 View 的能力**
+
 ## Usage
 
 1. 仿微信文本输入框
