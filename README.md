@@ -44,15 +44,18 @@ ps：messageBar 的样式可以参考微信聊天的输入框
 inputAccessView 的高度没办法灵活变化这点还挺有趣的，系统的键盘会被放在一个专门的 window 中，创建了一个 VC 其中用两个 childViewControllerView 分别提供里两个 containder View 管理 inputAccessView 和 inputView，高度定死，reloadInputView 也没办法解决上述需求。
 
 **为什么使用 jft_needMessageBar 必须要求 view 不能为 scrolleView**
+
 假设一个页面直接继承自 UITableViewController，那 messageBar 应该添加在哪里？tableView 上？肯定不合适。因为这样会导致滑动过程中输入框跟着一起动。
 如果贴在 window 上呢？那页面侧滑的时候 messageBar 又不能跟着滑动，体验上不符合用户预期。
 故此如果需要使用项目中的 messageBar，必须保证页面不能重写 loadView 方法，把 VC 的 view 替换成 UIScrolleView 以及他的子类，否则根本没办法做
 
 **为什么 messageBar 采用了 autolayout 布局而没有用绝对布局**
+
 我们项目中大部分代码都采用绝对布局保证 UI 布局的效率，性能调优&debug的时候也能快速定位问题，不用解决一堆约束依赖的问题。
 这里用 autolayout 还是考虑到为了保证 UIViewController category 的干净程度。如果绝对布局就势必需要记录很多数据： keyboard 的 frame，当前键盘是否出现了，自增长的 textView 的高度变化时需要监听其变化动态调整。UIViewController category 中只接收两个参数：键盘隐藏与否、bottomInset，以此决定了 messageBar 最终的样式。
 
 **textInputTrigger 使用准则**
+
 manager 中会动态查找三个对象
 1. currentActiveTextView
 2. textInputTrigger
@@ -66,6 +69,7 @@ manager 中会动态查找三个对象
 在用这个属性的时候必须保证在**每次**键盘弹起之前设置这个属性，否则会出现异常
 
 **可能会出现异常的情况**
+
 manager 中会动态查找离 textInputTrigger 最近的一个能够滑动的 ScrolleView，当出现 ScrolleView 嵌套的情况下一定会出现查找异常，导致显示异常。
 既然做成自动化的通用组件，在保持其低耦合度的前提下，除非把类似 tableView 之类的基础组件也一整套打包提供（这样可定制化程度就低了），否则动态查找的流程不能避免，这部分应该挺难优化的。
 
