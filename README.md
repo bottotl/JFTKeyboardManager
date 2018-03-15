@@ -31,6 +31,7 @@ ps：messageBar 的样式可以参考微信聊天的输入框
 ### 为什么第三方不能解决定制化的的问题？
 
 我们假设有如下三种场景
+
 1. ScrollView 中有输入框
 2. ScrollView 中没有输入框，但是有评论按钮。页面中有一个长期露出的 messageBar
 3. ScrollView 中没有输入框，但是有评论按钮。页面中有一个在需要输入框的时候才会露出，不需要的时候（没点击评论的时候）隐藏的 messageBar。
@@ -57,6 +58,7 @@ inputAccessView 的高度没办法灵活变化这点还挺有趣的，系统的�
 **textInputTrigger 使用准则**
 
 manager 中会动态查找三个对象
+
 1. currentActiveTextView
 2. textInputTrigger
 3. ScrolleView
@@ -73,6 +75,12 @@ manager 中会动态查找三个对象
 manager 中会动态查找离 textInputTrigger 最近的一个能够滑动的 ScrolleView，当出现 ScrolleView 嵌套的情况下一定会出现查找异常，导致显示异常。
 既然做成自动化的通用组件，在保持其低耦合度的前提下，除非把类似 tableView 之类的基础组件也一整套打包提供（这样可定制化程度就低了），否则动态查找的流程不能避免，这部分应该挺难优化的。
 
+## 思维导图
+
+![](http://markdown-1254413962.cossh.myqcloud.com/2018-03-15-12-44-39.png)
+
+![](http://markdown-1254413962.cossh.myqcloud.com/2018-03-15-12-46-13.png)
+
 ## Usage
 
 1. 仿微信文本输入框
@@ -80,13 +88,14 @@ manager 中会动态查找离 textInputTrigger 最近的一个能够滑动的 Sc
 3. 任意 TextView 添加键盘隐藏和显示 emoji 键盘的 ToolBar
 
 ## How to use
+
 **所有category 都在 JFTKeyboard.h 中声明**
 
-### 1. 给输入框添加 ToolBar——包含 `Emoji 键盘`和 `隐藏键盘` 
+### 1. 给输入框添加 ToolBar——包含 `Emoji 键盘`和 `隐藏键盘`
 
 **给TextView设置属性**
 
-```
+```objective-c
 self.textView.jft_needInputAccessoryView = YES;
 ```
 
@@ -94,38 +103,35 @@ self.textView.jft_needInputAccessoryView = YES;
 
 **给TextView设置属性**
 
-```
+```objective-c
 self.textView.jft_needAvoidKeyboardHide  = YES;
 ```
 
 ### 3. 点击非输入框区域自动隐藏键盘
 
-
 **给TextView设置属性**
 
-```
+```objective-c
 self.textView.jft_shouldResignOnTouchOutside = YES;
 ```
 
-
 ### 4. 给页面添加仿微信的输入框
-
 
 **设置 jft_needMessageBar 属性**
 
-```
+```objective-c
 self.jft_needMessageBar = YES;
 ```
 
 如果希望有点击其他区域隐藏键盘的需求，设置如下的值
 
-```
+```objective-c
 self.jft_messageBar.textView.jft_shouldResignOnTouchOutside = YES;
 ```
 
 如果希望点击一个按钮，弹起 messageBar 并且按钮的下边缘（或其他位置）对齐 messageBar 的顶部
 
-```
+```objective-c
 - (void)triggerTestA:(UIButton *)sender {
     [sender jft_becomeTextInputTrigger];
     //务必确认在键盘弹起之前调用按钮的 jft_becomeTextInputTrigger
@@ -133,3 +139,4 @@ self.jft_messageBar.textView.jft_shouldResignOnTouchOutside = YES;
 }
 
 ```
+
