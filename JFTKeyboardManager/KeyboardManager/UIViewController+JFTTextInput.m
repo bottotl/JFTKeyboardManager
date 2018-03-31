@@ -13,16 +13,18 @@
 #import "UIResponder+JFTFirstResponder.h"
 #import "MASViewAttribute.h"
 
+static CGFloat const kMessageBarHeight = 84.f;
+
+static void *JFTVCMaskViewKey = &JFTVCMaskViewKey;
 static void *JFTVCMessageBarKey = &JFTVCMessageBarKey;
 static void *JFTVCNeedMessageBarKey = &JFTVCNeedMessageBarKey;
 static void *JFTVCMessageBarStyleKey = &JFTVCMessageBarStyleKey;
 static void *JFTVCMessageBarBottomInsetKey = &JFTVCMessageBarBottomInsetKey;
 
-//static CGFloat kMessageBarDefaultHeight = 200.f;
-
 @interface UIViewController()
 @property (nonatomic, readwrite) CGFloat jft_messageBarBottomInset;
-@property (nonatomic, readwrite) JFTMessageStyleToolBar *jft_messageBar;
+@property (nonatomic, readwrite, strong) JFTMessageStyleToolBar *jft_messageBar;
+@property (nonatomic, readwrite, strong) UIView *jft_vcMaskView;
 @end
 
 @implementation UIViewController (JFTMessageBar)
@@ -81,6 +83,7 @@ static void *JFTVCMessageBarBottomInsetKey = &JFTVCMessageBarBottomInsetKey;
     JFTMessageStyleToolBar *msgBar = objc_getAssociatedObject(self, JFTVCMessageBarKey);
     if (!msgBar) {
         msgBar = [JFTMessageStyleToolBar new];
+        msgBar.textView.maxTextHeight = kMessageBarHeight;
         self.jft_messageBar = msgBar;
     }
     return msgBar;
@@ -103,6 +106,22 @@ static void *JFTVCMessageBarBottomInsetKey = &JFTVCMessageBarBottomInsetKey;
     objc_setAssociatedObject(self, JFTVCMessageBarBottomInsetKey, @(jft_messageBarBottomInset), OBJC_ASSOCIATION_RETAIN);
 }
 
+- (UIView *)jft_vcMaskView {
+    UIView *mask = objc_getAssociatedObject(self, JFTVCMaskViewKey);
+    if (!mask) {
+        mask = [UIView new];
+        mask.backgroundColor = [UIColor blackColor];
+        mask.alpha = 0;
+        self.jft_vcMaskView = mask;
+    }
+    return mask;
+}
+    
+- (void)setJft_vcMaskView:(UIView *)jft_vcMaskView {
+    __unused id x = [JFTKeyboardManager sharedManager];;
+    objc_setAssociatedObject(self, JFTVCMaskViewKey, jft_vcMaskView, OBJC_ASSOCIATION_RETAIN);
+}
+    
 #pragma Constraints
 
 - (void)jft_updateToolBarBottomInset:(CGFloat)bottom {
@@ -117,14 +136,44 @@ static void *JFTVCMessageBarBottomInsetKey = &JFTVCMessageBarBottomInsetKey;
     }
 }
 
+- (void)jft_updateMaskViewWithOutAnimation {
+    if (self.view.window) {
+        [self.jft_vcMaskView removeFromSuperview];
+        [[UIApplication sharedApplication].keyWindow addSubview:self.jft_vcMaskView];
+        [self.jft_vcMaskView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self.jft_messageBar.mas_centerX);
+            make.top.equalTo(@(0));
+            make.bottom.equalTo(self.jft_messageBar.mas_top);
+            make.width.equalTo(self.jft_messageBar.mas_width);
+        }];
+        self.jft_vcMaskView.hidden = NO;
+        [self.jft_vcMaskView.superview layoutIfNeeded];
+        [self.jft_vcMaskView.layer removeAllAnimations];
+    } else {
+        self.jft_vcMaskView.hidden = YES;
+        [self.jft_vcMaskView removeFromSuperview];
+        [self.jft_vcMaskView.layer removeAllAnimations];
+    }
+}
+
+- (void)jft_showMaskView {
+    self.jft_vcMaskView.alpha = 0.3;
+}
+
+- (void)jft_hideMaskView {
+    self.jft_vcMaskView.alpha = 0;
+}
+
 - (void)updateAlwaysShowMsgBarConstraints:(JFTMessageStyleToolBar *)msgBar isKeyboardShowing:(BOOL)keyboardShowing bottom:(CGFloat)bottom {
     if (keyboardShowing) {
+        msgBar.seperateLine.hidden = YES;
         [msgBar mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self.view.mas_centerX);
             make.bottom.equalTo(self.view.mas_bottom).offset(-bottom+[JFTMessageStyleToolBar jft_homeIndicatorHeight]);
             make.width.equalTo(self.view.mas_width);
         }];
     } else {
+        msgBar.seperateLine.hidden = NO;
         [msgBar mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self.view.mas_centerX);
             make.bottom.equalTo(self.view.mas_bottom);
@@ -135,12 +184,14 @@ static void *JFTVCMessageBarBottomInsetKey = &JFTVCMessageBarBottomInsetKey;
 
 - (void)updateHiddenWhenNoNeedMsgBarConstraints:(JFTMessageStyleToolBar *)msgBar isKeyboardShowing:(BOOL)keyboardShowing bottom:(CGFloat)bottom {
     if (keyboardShowing) {
+        msgBar.seperateLine.hidden = YES;
         [msgBar mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self.view.mas_centerX);
             make.bottom.equalTo(self.view.mas_bottom).offset(-bottom+[JFTMessageStyleToolBar jft_homeIndicatorHeight]);
             make.width.equalTo(self.view.mas_width);
         }];
     } else {
+        msgBar.seperateLine.hidden = NO;
         [msgBar mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.view.mas_bottom);
             make.centerX.equalTo(self.view.mas_centerX);

@@ -16,5 +16,5 @@
 @property (nonatomic, assign) CGFloat animationDuraiton;
 @property (nonatomic, assign) CGRect frameBegin;
 @property (nonatomic, assign) CGRect frameEnd;
-@property (nonatomic, assign) BOOL isLocal;
+//@property (nonatomic, assign) BOOL isLocal;
 @end

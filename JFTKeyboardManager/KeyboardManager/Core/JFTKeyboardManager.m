@@ -18,6 +18,7 @@
 #import "UIResponder+JFTKeyboard.h"
 #import "JFTKeyboardManager+Private.h"
 #import "UIView+JFTTextInputTrigger.h"
+#import "UIScrollView+JFTDisableKeyboardManager.h"
 
 static JFTKeyboardManager * _sharadManager = nil;
 
@@ -39,7 +40,6 @@ static JFTKeyboardManager * _sharadManager = nil;
     dispatch_once(&onceToken, ^{
         _sharadManager = [[JFTKeyboardManager alloc] init];
         [_sharadManager registerAllNotifications];
-        _sharadManager.keyboardModel = [JFTKeyboardModel new];
     });
     return _sharadManager;
 }
@@ -47,35 +47,9 @@ static JFTKeyboardManager * _sharadManager = nil;
 - (instancetype)init {
     if (self = [super init]) {
         _messageBarViewController = [NSHashTable weakObjectsHashTable];
-        @weakify(self);
-        _customInputView = [JFTTestEmojiInputView new];
-        _customInputView.emojiItemDidClick = ^(NSString *emojiItem) {
-            @strongify(self);
-            if (self.currentActiveTextView) {
-                [self addEmojiItem:emojiItem toTextView:self.currentActiveTextView];
-            }
-        };
-        CGRect windowRect = [UIApplication sharedApplication].keyWindow.bounds;
-        _customInputView.frame = CGRectMake(0, 0, CGRectGetWidth(windowRect), 210);
-        _customInputView.backgroundColor = [UIColor blueColor];
         
-        _customInputAccessoryView = [[JFTTestEmojiInputAccessoryView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(windowRect), 100)];
+        [self setupInputAccessoryView];
         
-        _customInputAccessoryView.dismissKeyboardBlock = ^(void) {
-            @strongify(self);
-            if ([self.currentActiveTextView isFirstResponder]) {
-                [self.currentActiveTextView resignFirstResponder];
-            }
-        };
-        
-        _customInputAccessoryView.keyboardStateChangeBlock = ^(JFTTestEmojiInputAccessoryKeyboardState state) {
-            @strongify(self);
-            if (state == JFTTestEmojiInputAccessoryKeyboardStateSystem) {
-                [self.currentActiveTextView jft_changeToDefaultInputView];
-            } else {
-                [self.currentActiveTextView jft_changeToCustomInputView:self.customInputView];
-            }
-        };
         _touchOutSideTapGesture = [UITapGestureRecognizer new];
         [_touchOutSideTapGesture addTarget:self action:@selector(resignOnTouchOutside)];
         _touchOutSideTapGesture.delegate = self;
@@ -84,12 +58,6 @@ static JFTKeyboardManager * _sharadManager = nil;
         _touchOutSidePanGesture.delegate = self;
     }
     return self;
-}
-
-- (void)addEmojiItem:(NSString *)emoji toTextView:(UITextView *)textView {
-    NSParameterAssert(textView || emoji);
-    UITextRange *range = textView.selectedTextRange;
-    [self.currentActiveTextView replaceRange:range withText:emoji];
 }
 
 - (void)registerAllNotifications {
@@ -109,47 +77,61 @@ static JFTKeyboardManager * _sharadManager = nil;
 }
 
 - (void)updateMessageBar {
+    if (!self.keyboardModel) return;
     CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
     CGFloat bottomInsert = screenHeight - self.keyboardModel.frameEnd.origin.y;
     [self.messageBarViewController.allObjects enumerateObjectsUsingBlock:^(UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [UIView animateKeyframesWithDuration:self.keyboardModel.animationDuraiton delay:0 options:self.keyboardModel.animationCurve animations:^{
-            [obj jft_updateToolBarBottomInset:bottomInsert];
-            [obj.view layoutIfNeeded];
+        // 这个方法会在 keyboardFrameWillChange 中调用，因此所有关于视图变化都会被包在键盘的动画中，因此需要 jft_updateMaskViewWithOutAnimation 会把layer的动画手动移除
+        if (bottomInsert > 0) {
+            [obj jft_hideMaskView];
+        } else {
+            [obj jft_showMaskView];
+        }
+        [obj jft_updateMaskViewWithOutAnimation];
+        [obj jft_updateToolBarBottomInset:bottomInsert];
+        
+        [UIView animateKeyframesWithDuration:self.keyboardModel.animationDuraiton delay:0 options:self.keyboardModel.animationCurve | UIViewKeyframeAnimationOptionBeginFromCurrentState animations:^{
+            [obj.jft_messageBar.superview layoutIfNeeded];
+            [obj.jft_vcMaskView.superview layoutIfNeeded];
+            if (bottomInsert > 0) {
+                [obj jft_showMaskView];
+            } else {
+                [obj jft_hideMaskView];
+            }
         } completion:nil];
     }];
 }
 
 - (void)keyboardWillShow:(NSNotification *)aNotification {
     [self updateKeyboardModelWithKeyboardNotification:aNotification];
-    [self adjustScrollViewOffsetIfNeed];
-    [self attachGestures];
+    [self updateInputAccessoryViewWithTextInputView:self.currentActiveTextView];
 }
 
 - (void)keyboardDidShow:(NSNotification *)aNotification {
     [self updateKeyboardModelWithKeyboardNotification:aNotification];
+    [self attachGestures];
 }
 
 - (void)keyboardWillHide:(NSNotification *)aNotification {
-    [self.customInputAccessoryView reset];
-    self.currentActiveTextView.inputView = nil;
     [self updateKeyboardModelWithKeyboardNotification:aNotification];
-    [self adjustScrollViewOffsetIfNeed];
-    [self removeGestures];
 }
 
 - (void)keyboardDidHide:(NSNotification *)aNotification {
     [self updateKeyboardModelWithKeyboardNotification:aNotification];
+    [self reset];
 }
 
-- (void)textViewDidBeginEditing:(NSNotification *)aNotification {
-    [self adjustScrollViewOffsetIfNeed];
+- (void)reset {
+    self.currentActiveTextView.jft_inputView = nil;
+    self.keyboardModel = nil;
+    [self.customInputAccessoryView reset];
+    [self resetInputAccessoryView];
     [self resignTextInputTrigger];
-}
-
-- (void)textViewDidEndEditing:(NSNotification *)aNotification {
+    [self removeGestures];
 }
 
 - (void)adjustScrollViewOffsetIfNeed {
+    if (!self.keyboardModel) return;
     /// 正常有两种情况
     /// 1.scroll view 中的 TextView 成为 firstResponder 触发的键盘
     /// 2.scroll view 中的某个按钮（或者其他什么）让某个 textView （比如 message bar 中的 textView）成为 firstResponder
@@ -180,7 +162,7 @@ static JFTKeyboardManager * _sharadManager = nil;
         }
     }
     // adjust frame
-    if (!superView) return;
+    if (!superView || superView.jft_shouldDisableKeyboardManager) return;
     
     UIWindow *keyWindow = textInputTrigger.window;
     
@@ -216,10 +198,10 @@ static JFTKeyboardManager * _sharadManager = nil;
     
     CGFloat targetContentOffsetY = superView.contentOffset.y + offsetY;
     /// 没空间向下移了
-    if (targetContentOffsetY<0) return;
-    
-    superView.contentOffset = CGPointMake(superView.contentOffset.x, targetContentOffsetY);
-//    NSLog(@"isKeyboardCoverTextView === %@", @());
+    if (targetContentOffsetY<0) targetContentOffsetY = 0;
+    [UIView animateKeyframesWithDuration:self.keyboardModel.animationDuraiton delay:0 options: self.keyboardModel.animationCurve | UIViewKeyframeAnimationOptionBeginFromCurrentState animations:^{
+        superView.contentOffset = CGPointMake(superView.contentOffset.x, targetContentOffsetY);
+    } completion:nil];
 }
 
 - (BOOL)isKeyboardCoverTextView:(CGRect)keyboardFrame rectInWindow:(CGRect)rect {
@@ -243,12 +225,12 @@ static JFTKeyboardManager * _sharadManager = nil;
 - (void)updateKeyboardModelWithKeyboardNotification:(NSNotification *)aNotification {
     NSDictionary *userInfo = aNotification.userInfo;
     if (!userInfo) return;
-    
+    self.keyboardModel = [JFTKeyboardModel new];
     self.keyboardModel.animationCurve = [[userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] integerValue];
     self.keyboardModel.animationDuraiton = [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
     self.keyboardModel.frameBegin = [[userInfo objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
     self.keyboardModel.frameEnd = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    self.keyboardModel.isLocal = [[userInfo objectForKey:UIKeyboardIsLocalUserInfoKey] boolValue];
+//    self.keyboardModel.isLocal = [[userInfo objectForKey:UIKeyboardIsLocalUserInfoKey] boolValue];
 }
 
 - (void)registerViewController:(UIViewController *)viewController {
@@ -263,10 +245,9 @@ static JFTKeyboardManager * _sharadManager = nil;
 
 - (void)attachGestures {
     if (!self.currentActiveTextView.jft_shouldResignOnTouchOutside) return;
-    UIViewController *nearestVC = [self currentActiveTextView].nearestViewController;
-    if (!nearestVC) return;
-    [nearestVC.view addGestureRecognizer:self.touchOutSideTapGesture];
-    [nearestVC.view addGestureRecognizer:self.touchOutSidePanGesture];
+    UIWindow *keywindow = [UIApplication sharedApplication].keyWindow;
+    [keywindow addGestureRecognizer:self.touchOutSideTapGesture];
+    [keywindow addGestureRecognizer:self.touchOutSidePanGesture];
 }
 
 - (void)removeGestures {
@@ -284,7 +265,10 @@ static JFTKeyboardManager * _sharadManager = nil;
 }
 
 - (BOOL)gestureShouldRespond:(UIGestureRecognizer *)gestureRecognizer touch:(UITouch *)touch {
-    NSParameterAssert(self.currentActiveTextView);
+    if (!self.currentActiveTextView) {
+        NSLog(@"这里有问题");
+        return NO;
+    }
     
     BOOL gestureOwned, rectOutSideViewOwned, rectOutSideKeyboard;
     
@@ -307,6 +291,7 @@ static JFTKeyboardManager * _sharadManager = nil;
 }
 
 - (void)resignOnTouchOutside {
+    [self resignTextInputTrigger];
     [self recoverScrollViewBeforeResignFirstResponder:self.currentActiveTextView];
     [self.currentActiveTextView resignFirstResponder];
 }
@@ -349,6 +334,63 @@ static JFTKeyboardManager * _sharadManager = nil;
 
 - (void)resignTextInputTrigger {
     self.textInputTrigger = nil;
+}
+
+#pragma mark - Input Accessory view
+
+- (void)setupInputAccessoryView {
+    @weakify(self);
+    _customInputView = [JFTTestEmojiInputView new];
+    _customInputView.emojiItemDidClick = ^(NSString *emoji) {
+        @strongify(self);
+        if (self.currentActiveTextView) {
+            [self addEmojiItem:emoji toTextInputView:self.currentActiveTextView];
+        }
+    };
+    
+    CGRect windowRect = [UIApplication sharedApplication].keyWindow.bounds;
+    _customInputView.frame = CGRectMake(0, 0, CGRectGetWidth(windowRect), 220);
+    
+    _customInputAccessoryView = [[JFTTestEmojiInputAccessoryView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(windowRect), 44)];
+    
+    _customInputAccessoryView.dismissKeyboardBlock = ^(void) {
+        @strongify(self);
+        if ([self.currentActiveTextView isFirstResponder]) {
+            [self.currentActiveTextView resignFirstResponder];
+        }
+    };
+    _customInputAccessoryView.keyboardStateChangeBlock = ^(JFTTestEmojiInputAccessoryKeyboardState state) {
+        @strongify(self);
+        if (state == JFTTestEmojiInputAccessoryKeyboardStateSystem) {
+            [self.currentActiveTextView jft_changeToDefaultInputView];
+        } else {
+            [self.currentActiveTextView jft_changeToCustomInputView:self.customInputView];
+        }
+    };
+}
+
+- (void)addEmojiItem:(NSString *)emoji toTextInputView:(id<UITextInput>)inputView {
+    NSParameterAssert(inputView || emoji);
+    UITextRange *range = inputView.selectedTextRange;
+    [self.currentActiveTextView replaceRange:range withText:emoji];
+}
+
+- (void)updateInputAccessoryViewWithTextInputView:(UIView<UITextInput> *)view {
+//    self.customInputAccessoryView.needEmojiButton = view.jft_needEomjiInputButton;
+    if (view.jft_inputAccessoryLeftView) {
+//        self.customInputAccessoryView.customView = view.jft_inputAccessoryLeftView;
+    }
+    [self.customInputAccessoryView setNeedsLayout];
+    [self.customInputAccessoryView layoutIfNeeded];
+}
+
+- (void)resetInputAccessoryView {
+//    self.customInputAccessoryView.needEmojiButton = NO;
+//    self.customInputAccessoryView.customView = nil;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

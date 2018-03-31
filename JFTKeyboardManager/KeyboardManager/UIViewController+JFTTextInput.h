@@ -25,9 +25,11 @@ typedef enum : NSUInteger {
 
 @property (nonatomic, assign)   JFTMessageBarStyle      jft_messageBarStyle;
 @property (nonatomic, readonly) JFTMessageStyleToolBar *jft_messageBar;
-
+@property (nonatomic, readonly) UIView *jft_vcMaskView;
+- (void)jft_updateMaskViewWithOutAnimation;
+- (void)jft_showMaskView;
+- (void)jft_hideMaskView;
 #pragma mark - Private
 @property (nonatomic, readonly) CGFloat jft_messageBarBottomInset;
 - (void)jft_updateToolBarBottomInset:(CGFloat)bottom;
-
 @end
