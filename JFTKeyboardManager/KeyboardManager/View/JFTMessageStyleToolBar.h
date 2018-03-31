@@ -18,6 +18,7 @@
 /**
  never change this textView's delegate
  */
+@property (nonatomic, readonly) UIView              *seperateLine;
 @property (nonatomic, readonly) JFTAutosizeTextView *textView;
 @property (nonatomic, readonly) UIButton            *emojiButton;
 @property (nonatomic, copy)     NSString            *text;

@@ -8,13 +8,12 @@
 
 #import "JFTMessageStyleToolBar.h"
 #import "Masonry.h"
-#import "UITextView+JFTInputView.h"
 #import "JFTKeyboardManager+Private.h"
 
 static const CGFloat kToolBarDefaultHeight = 60.f;
 //static const CGSize  kEmojiButtonSize = {30, 30};
 //static const UIEdgeInsets kEmojiPadding = {0, 0, 10, 10};
-static const UIEdgeInsets kTextViewPadding = {15, 10, 10, 15};
+static const UIEdgeInsets kTextViewPadding = {15, 10, 15, 10};
 
 @interface JFTMessageStyleToolBar ()<UITextViewDelegate>
 
@@ -39,7 +38,7 @@ static const UIEdgeInsets kTextViewPadding = {15, 10, 10, 15};
 //        CGFloat textViewWidth = CGRectGetWidth(frame) - kTextViewPadding.left - kTextViewPadding.right -
 //        kEmojiButtonSize.width - kEmojiPadding.right;
         _seperateLine = [UIView new];
-        _seperateLine.backgroundColor = [UIColor lightGrayColor];
+        _seperateLine.backgroundColor = [UIColor colorWithRed:225.f/255.f green:225.f/255.f blue:225.f/255.f alpha:1];
         [self addSubview:_seperateLine];
         
         [_seperateLine mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -48,7 +47,7 @@ static const UIEdgeInsets kTextViewPadding = {15, 10, 10, 15};
         }];
         
         _textView = [JFTAutosizeTextView new];
-        _textView.layer.borderColor = [UIColor grayColor].CGColor;
+        _textView.layer.borderColor = [UIColor colorWithRed:225.f/255.f green:225.f/255.f blue:225.f/255.f alpha:1].CGColor;
         _textView.layer.borderWidth = 1;
         _textView.layer.cornerRadius = 5;
         _textView.textContainerInset = UIEdgeInsetsMake(6, 0, 6, 0);
@@ -134,12 +133,11 @@ static const UIEdgeInsets kTextViewPadding = {15, 10, 10, 15};
 }
 
 - (void)willChangeHeight:(CGFloat)height {
-    CGFloat viewHeight = height;
-    CGFloat currentHeight = kTextViewPadding.top + viewHeight + kTextViewPadding.bottom + [JFTMessageStyleToolBar jft_homeIndicatorHeight];
     [self.textView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@(viewHeight));
+        make.height.equalTo(@(height));
     }];
-    self.currentHeight = currentHeight;
+    [self layoutIfNeeded];
+    [[JFTKeyboardManager sharedManager] adjustScrollViewOffsetIfNeed];
 }
 
 //- (void)changeKeyboard {
@@ -155,6 +153,10 @@ static const UIEdgeInsets kTextViewPadding = {15, 10, 10, 15};
 //    [self.textView reloadInputViews];
 //    [self startEdit];
 //}
+
+- (CGFloat)currentHeight {
+    return self.frame.size.height;
+}
 
 - (void)setBeginEdit:(void (^)(JFTMessageStyleToolBar *))beginEdit {
     _beginEdit = beginEdit;
