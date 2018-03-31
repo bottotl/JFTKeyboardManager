@@ -1,19 +1,18 @@
 //
-//  UITextView+JFTInputView.m
-//  JFTKeyboardManager
+//  UIView+JFTTextInput.m
+//  JFTKeyboard
 //
-//  Created by syfll on 2017/12/26.
-//  Copyright © 2017年 syfll. All rights reserved.
+//  Created by syfll on 2018/3/16.
 //
 
-#import "UITextView+JFTInputView.h"
+#import "UIView+JFTTextInput.h"
 #import <objc/runtime.h>
 #import "JFTKeyboardManager+Private.h"
+#import "UIResponder+JFTFirstResponder.h"
 
 static void *JFTInputAccessoryViewStyleKey = &JFTInputAccessoryViewStyleKey;
 
-@implementation UITextView (JFTInputView)
-
+@implementation UIView (JFTTextInput)
 - (JFTInputAccessoryViewStyle)jft_inputAccessoryViewStyle {
     NSNumber *styleNumber = objc_getAssociatedObject(self, JFTInputAccessoryViewStyleKey);
     switch (styleNumber.integerValue) {
@@ -35,14 +34,14 @@ static void *JFTInputAccessoryViewStyleKey = &JFTInputAccessoryViewStyleKey;
     switch (jft_inputAccessoryViewStyle) {
         case JFTInputAccessoryViewStyleNone:
             styleNumber = @(JFTInputAccessoryViewStyleNone);
-            self.inputAccessoryView = nil;
+            self.jft_inputAccessoryView = nil;
             break;
         case JFTInputAccessoryViewStyleEmoji:
             styleNumber = @(JFTInputAccessoryViewStyleEmoji);
-            self.inputAccessoryView = [JFTKeyboardManager sharedManager].customInputAccessoryView;
+            self.jft_inputAccessoryView = [JFTKeyboardManager sharedManager].customInputAccessoryView;
             break;
         default:
-            self.inputAccessoryView = nil;
+            self.jft_inputAccessoryView = nil;
             styleNumber = @(JFTInputAccessoryViewStyleNone);
             break;
     }
@@ -52,14 +51,13 @@ static void *JFTInputAccessoryViewStyleKey = &JFTInputAccessoryViewStyleKey;
 
 - (void)jft_changeToCustomInputView:(UIView *)customView {
     if (customView) {
-        self.inputView = customView;
+        self.jft_inputView = customView;
         [self reloadInputViews];
     }
 }
 
 - (void)jft_changeToDefaultInputView {
-    self.inputView = nil;
+    self.jft_inputView = nil;
     [self reloadInputViews];
 }
-
 @end

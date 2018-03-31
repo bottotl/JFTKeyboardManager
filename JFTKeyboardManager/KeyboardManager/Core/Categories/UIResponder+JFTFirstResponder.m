@@ -39,4 +39,38 @@ static __weak id _jft_currentFirstResponder = nil;
     return nil;
 }
 
+- (void)setJft_inputView:(__kindof UIView *)jft_inputView {
+    if ([self isKindOfClass:[UITextView class]]) {
+        [(UITextView *)self setInputView:jft_inputView];
+    } else if ([self isKindOfClass:[UITextField class]]) {
+        [(UITextField *)self setInputView:jft_inputView];
+    }
+}
+
+- (UIView *)jft_inputView {
+    if ([self isKindOfClass:[UITextView class]]) {
+        return [(UITextView *)self inputView];
+    } else if ([self isKindOfClass:[UITextField class]]) {
+        return [(UITextField *)self inputView];
+    }
+    return nil;
+}
+
+- (void)setJft_inputAccessoryView:(__kindof UIView *)jft_inputAccessoryView {
+    if ([self isKindOfClass:[UITextView class]]) {
+        [(UITextView *)self setInputAccessoryView:jft_inputAccessoryView];
+    } else if ([self isKindOfClass:[UITextField class]]) {
+        [(UITextField *)self setInputAccessoryView:jft_inputAccessoryView];
+    }
+}
+
+- (UIView *)jft_inputAccessoryView {
+    if ([self isKindOfClass:[UITextView class]]) {
+        return [(UITextView *)self inputAccessoryView];
+    } else if ([self isKindOfClass:[UITextField class]]) {
+        return [(UITextField *)self inputAccessoryView];
+    }
+    return nil;
+}
+
 @end

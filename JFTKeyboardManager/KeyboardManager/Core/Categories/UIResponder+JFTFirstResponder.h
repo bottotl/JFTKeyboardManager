@@ -8,7 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface UIResponder (JFTFirstResponder)
+
 + (UIResponder *)jft_currentFirstResponder;
+
 - (UIViewController *)nearestViewController;
+
+@property (nullable, nonatomic, strong) __kindof UIView *jft_inputView;
+@property (nullable, nonatomic, strong) __kindof UIView *jft_inputAccessoryView;
+
 @end
+
+NS_ASSUME_NONNULL_END

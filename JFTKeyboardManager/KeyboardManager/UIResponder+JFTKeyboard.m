@@ -7,16 +7,20 @@
 //
 
 #import "UIResponder+JFTKeyboard.h"
-#import "UITextView+JFTInputView.h"
 #import <objc/runtime.h>
+#import "JFTKeyboardManager.h"
+#import "JFTInputAccessoryProtocol.h"
 
 static void *JFTNeedAvoidKeyboardHideKey         = &JFTNeedAvoidKeyboardHideKey;
 static void *JFTNeedInputAccessoryViewKey        = &JFTNeedInputAccessoryViewKey;
 static void *JFTShouldResignOnTouchOutsideKey    = &JFTShouldResignOnTouchOutsideKey;
+static void *JFTNeedEmojiInputButtonKey        = &JFTNeedEmojiInputButtonKey;
+static void *JFTInputAccessoryLeftViewKey        = &JFTInputAccessoryLeftViewKey;
 
 @implementation UIResponder (JFTKeyboard)
 
 - (void)setJft_shouldResignOnTouchOutside:(BOOL)jft_shouldResignOnTouchOutside {
+    __unused id x = [JFTKeyboardManager sharedManager];
     objc_setAssociatedObject(self, JFTShouldResignOnTouchOutsideKey, @(jft_shouldResignOnTouchOutside), OBJC_ASSOCIATION_RETAIN);
 }
 
@@ -25,6 +29,7 @@ static void *JFTShouldResignOnTouchOutsideKey    = &JFTShouldResignOnTouchOutsid
 }
 
 - (void)setJft_needAvoidKeyboardHide:(BOOL)jft_needAvoidKeyboardHide {
+    __unused id x = [JFTKeyboardManager sharedManager];
     objc_setAssociatedObject(self, JFTNeedAvoidKeyboardHideKey, @(jft_needAvoidKeyboardHide), OBJC_ASSOCIATION_RETAIN);
 }
 
@@ -33,12 +38,14 @@ static void *JFTShouldResignOnTouchOutsideKey    = &JFTShouldResignOnTouchOutsid
 }
 
 - (void)setJft_needInputAccessoryView:(BOOL)jft_needInputAccessoryView {
+    __unused id x = [JFTKeyboardManager sharedManager];;
     objc_setAssociatedObject(self, JFTNeedInputAccessoryViewKey, @(jft_needInputAccessoryView), OBJC_ASSOCIATION_RETAIN);
-    if (![self isKindOfClass:[UITextView class]]) return;
+    if (![self conformsToProtocol:@protocol(JFTInputAccessoryProtocol)]) return;
+    id<JFTInputAccessoryProtocol> obj = (id<JFTInputAccessoryProtocol>)self;
     if(jft_needInputAccessoryView) {
-        ((UITextView *)self).jft_inputAccessoryViewStyle = JFTInputAccessoryViewStyleEmoji;
+        obj.jft_inputAccessoryViewStyle = JFTInputAccessoryViewStyleEmoji;
     } else {
-        ((UITextView *)self).jft_inputAccessoryViewStyle = JFTInputAccessoryViewStyleNone;
+        obj.jft_inputAccessoryViewStyle = JFTInputAccessoryViewStyleNone;
     }
 }
 
@@ -46,5 +53,22 @@ static void *JFTShouldResignOnTouchOutsideKey    = &JFTShouldResignOnTouchOutsid
     return [(NSNumber *)objc_getAssociatedObject(self, JFTNeedInputAccessoryViewKey) boolValue];
 }
 
+- (void)setJft_needEomjiInputButton:(BOOL)jft_needEomjiInputButton {
+    __unused id x = [JFTKeyboardManager sharedManager];;
+    objc_setAssociatedObject(self, JFTNeedEmojiInputButtonKey, @(jft_needEomjiInputButton), OBJC_ASSOCIATION_RETAIN);
+}
+
+- (BOOL)jft_needEomjiInputButton {
+    return [(NSNumber *)objc_getAssociatedObject(self, JFTNeedEmojiInputButtonKey) boolValue];
+}
+
+- (void)setJft_inputAccessoryLeftView:(UIView *)jft_inputAccessoryLeftView {
+    __unused id x = [JFTKeyboardManager sharedManager];;
+    objc_setAssociatedObject(self, JFTInputAccessoryLeftViewKey, jft_inputAccessoryLeftView, OBJC_ASSOCIATION_RETAIN);
+}
+
+- (UIView *)jft_inputAccessoryLeftView {
+    return objc_getAssociatedObject(self, JFTInputAccessoryLeftViewKey);
+}
 
 @end

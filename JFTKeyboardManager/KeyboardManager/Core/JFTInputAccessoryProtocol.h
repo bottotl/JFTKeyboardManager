@@ -1,21 +1,24 @@
 //
-//  UITextView+JFTInputView.h
-//  JFTKeyboardManager
+//  JFTInputAccessoryProtocol.h
+//  JFTKeyboard
 //
-//  Created by syfll on 2017/12/26.
-//  Copyright © 2017年 syfll. All rights reserved.
+//  Created by syfll on 2018/3/16.
 //
 
-#import <UIKit/UIKit.h>
-#import "JFTKeyboardManager.h"
+#ifndef JFTInputAccessoryProtocol_h
+#define JFTInputAccessoryProtocol_h
 
+#import <Foundation/Foundation.h>
 typedef NS_ENUM(NSInteger, JFTInputAccessoryViewStyle) {
     JFTInputAccessoryViewStyleNone,
     JFTInputAccessoryViewStyleEmoji
 };
 
-@interface UITextView (JFTInputView)
+@protocol JFTInputAccessoryProtocol <NSObject>
+@required
 @property (nonatomic, assign) JFTInputAccessoryViewStyle jft_inputAccessoryViewStyle;
 - (void)jft_changeToCustomInputView:(UIView *)customView;
 - (void)jft_changeToDefaultInputView;
 @end
+
+#endif /* JFTInputAccessoryProtocol_h */

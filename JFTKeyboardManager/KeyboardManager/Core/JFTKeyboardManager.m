@@ -12,7 +12,7 @@
 #import "JFTKeyboardModel.h"
 #import "UIResponder+JFTFirstResponder.h"
 #import "UIScrollView+JFTKeyboardManager.h"
-#import "UITextView+JFTInputView.h"
+#import "UIView+JFTTextInput.h"
 #import "RACEXTScope.h"
 #import "UIViewController+JFTTextInput.h"
 #import "UIResponder+JFTKeyboard.h"
@@ -23,7 +23,7 @@ static JFTKeyboardManager * _sharadManager = nil;
 
 @interface JFTKeyboardManager()<UIGestureRecognizerDelegate>
 @property (nonatomic, strong) NSHashTable<UIViewController*> *messageBarViewController;
-@property (nonatomic, readonly) UITextView *currentActiveTextView;
+@property (nonatomic, readonly) UIView<UITextInput> *currentActiveTextView;
 @property (nonatomic, strong) JFTKeyboardModel *keyboardModel;///< save keyboard info
 @property (nonatomic, strong) JFTTestEmojiInputAccessoryView *customInputAccessoryView;
 @property (nonatomic, strong) UITapGestureRecognizer *touchOutSideTapGesture;
@@ -100,10 +100,6 @@ static JFTKeyboardManager * _sharadManager = nil;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardDidHideNotification object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardFrameWillChange:) name:UIKeyboardWillChangeFrameNotification object:nil];
-    
-    //  Registering for UITextView notification.
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textViewDidBeginEditing:) name:UITextViewTextDidBeginEditingNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textViewDidEndEditing:) name:UITextViewTextDidEndEditingNotification object:nil];
 }
 
 - (void)keyboardFrameWillChange:(NSNotification *)aNotification {
@@ -234,11 +230,11 @@ static JFTKeyboardManager * _sharadManager = nil;
     return YES;
 }
 
-- (UITextView *)currentActiveTextView {
+- (UIView<UITextInput> *)currentActiveTextView {
     UIResponder *firstResponder = [UIResponder jft_currentFirstResponder];
     if (!firstResponder) return nil;
-    if ([firstResponder isKindOfClass:[UITextView class]]) {
-        return (UITextView *)firstResponder;
+    if ([firstResponder conformsToProtocol:@protocol(UITextInput)] && [firstResponder isKindOfClass:[UIView class]]) {
+        return (UIView<UITextInput> *)firstResponder;
     } else {
         return nil;
     }
