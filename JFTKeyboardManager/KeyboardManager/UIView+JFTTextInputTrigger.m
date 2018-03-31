@@ -20,6 +20,7 @@ static void *JFTBottomOffsetKey = &JFTBottomOffsetKey;
 }
 
 - (void)setJft_bottomOffset:(CGFloat)jft_bottomOffset {
+    __unused id x = [JFTKeyboardManager sharedManager];;
     objc_setAssociatedObject(self, JFTBottomOffsetKey, @(jft_bottomOffset), OBJC_ASSOCIATION_RETAIN);
 }
 

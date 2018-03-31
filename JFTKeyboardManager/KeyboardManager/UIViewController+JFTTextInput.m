@@ -71,6 +71,7 @@ static void *JFTVCMessageBarBottomInsetKey = &JFTVCMessageBarBottomInsetKey;
 }
 
 - (void)setJft_messageBarStyle:(JFTMessageBarStyle)jft_messageBarStyle {
+    __unused id x = [JFTKeyboardManager sharedManager];;
     objc_setAssociatedObject(self, JFTVCMessageBarStyleKey, @(jft_messageBarStyle), OBJC_ASSOCIATION_RETAIN);
     [self jft_showMessageBar];
 }
@@ -86,6 +87,7 @@ static void *JFTVCMessageBarBottomInsetKey = &JFTVCMessageBarBottomInsetKey;
 }
 
 - (void)setJft_messageBar:(JFTMessageStyleToolBar *)jft_messageBar {
+    __unused id x = [JFTKeyboardManager sharedManager];;
     objc_setAssociatedObject(self, JFTVCMessageBarKey, jft_messageBar, OBJC_ASSOCIATION_RETAIN);
 }
 
@@ -97,6 +99,7 @@ static void *JFTVCMessageBarBottomInsetKey = &JFTVCMessageBarBottomInsetKey;
 }
 
 - (void)setJft_messageBarBottomInset:(CGFloat)jft_messageBarBottomInset {
+    __unused id x = [JFTKeyboardManager sharedManager];;
     objc_setAssociatedObject(self, JFTVCMessageBarBottomInsetKey, @(jft_messageBarBottomInset), OBJC_ASSOCIATION_RETAIN);
 }
 
