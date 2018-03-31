@@ -35,18 +35,6 @@
     return self;
 }
 
-/// UITextView 会在 init 的时候修改 ContentSize，这时候 maxTextHeight 如果没有来得及被初始化，会显示异常
-+ (instancetype)alloc {
-    JFTAutosizeTextView *textView = [super alloc];
-    [textView setupHeightProperty];
-    return textView;
-}
-
-- (void)setupHeightProperty {
-    _maxTextHeight = CGFLOAT_MAX;
-    _minTextHeight = 0;
-}
-
 - (void)jft_commonInit {
     self.rac_heightChangeSignal = [[self rac_valuesAndChangesForKeyPath:@"currentHeight" options:NSKeyValueObservingOptionNew observer:nil] map:^id(id x) {
         RACTupleUnpack(NSNumber *newHeight) = x;
@@ -55,6 +43,9 @@
     self.placeHolder = @"写点评论吧";
     self.showPlaceHolder = YES;
     self.delegate = self;
+    self.maxTextHeight = CGFLOAT_MAX;
+    self.minTextHeight = 0;
+    [self updateBoundsIfNeeded];
 }
 
 - (void)layoutSubviews {
