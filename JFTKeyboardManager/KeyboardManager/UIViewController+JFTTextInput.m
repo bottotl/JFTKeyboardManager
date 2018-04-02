@@ -125,6 +125,10 @@ static void *JFTVCMessageBarBottomInsetKey = &JFTVCMessageBarBottomInsetKey;
 #pragma Constraints
 
 - (void)jft_updateToolBarBottomInset:(CGFloat)bottom {
+    if (![self.jft_messageBar.textView isFirstResponder]) {
+        return [self jft_textViewNotFirstResponderHandler];
+    }
+
     self.jft_messageBarBottomInset = bottom;
     switch (self.jft_messageBarStyle) {
         case JFTMessageBarStyleAlwaysShow:
@@ -132,6 +136,18 @@ static void *JFTVCMessageBarBottomInsetKey = &JFTVCMessageBarBottomInsetKey;
             break;
         case JFTMessageBarStyleHiddenWhenNoNeed:
             [self updateHiddenWhenNoNeedMsgBarConstraints:self.jft_messageBar isKeyboardShowing:(bottom>0?YES:NO) bottom:bottom];
+            break;
+    }
+}
+
+- (void)jft_textViewNotFirstResponderHandler {
+    self.jft_messageBarBottomInset = 0;
+    switch (self.jft_messageBarStyle) {
+        case JFTMessageBarStyleAlwaysShow:
+            [self updateAlwaysShowMsgBarConstraints:self.jft_messageBar isKeyboardShowing:NO bottom:0];
+            break;
+        case JFTMessageBarStyleHiddenWhenNoNeed:
+            [self updateHiddenWhenNoNeedMsgBarConstraints:self.jft_messageBar isKeyboardShowing:NO bottom:0];
             break;
     }
 }
@@ -157,6 +173,10 @@ static void *JFTVCMessageBarBottomInsetKey = &JFTVCMessageBarBottomInsetKey;
 }
 
 - (void)jft_showMaskView {
+    if (![self.jft_messageBar.textView isFirstResponder]) {
+        return [self jft_hideMaskView];
+    }
+
     self.jft_vcMaskView.alpha = 0.3;
 }
 
